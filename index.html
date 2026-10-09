@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#120b08">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon-192.svg" type="image/svg+xml">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mastro Pizza">
+<title>Mastro Pizza</title>
+<style>
+:root{--bg:#100a08;--panel:#211713;--panel2:#18100d;--accent:#ff5722;--gold:#ffb74d;--blue:#29b6f6;--text:#f7f0eb;--muted:#b6a69d;--line:#4a2a1e;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#29150d 0%,var(--bg) 45%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:calc(86px + env(safe-area-inset-bottom))}
+header{text-align:center;padding:18px 14px 14px;background:linear-gradient(#ff57221a,transparent)}header h1{margin:0;font-size:1.85rem;font-weight:850;letter-spacing:-.5px;background:linear-gradient(135deg,#ffb74d,#ff3d00);color:transparent;background-clip:text}header p{margin:5px 0 0;color:var(--muted);font-size:.8rem}
+.page{display:none;max-width:600px;margin:auto;padding:12px 14px}.page.active{display:block;animation:fade .18s ease}@keyframes fade{from{opacity:.3;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card{background:linear-gradient(145deg,#261913ed,#180f0cf2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:13px;box-shadow:0 8px 28px #0005}.card-title{font-size:1rem;font-weight:800;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid #ffffff15;display:flex;gap:8px;align-items:center}
+.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}.style-btn,button,select,input{font:inherit}.style-btn{background:#ffffff08;border:1px solid #ffffff1c;color:var(--muted);border-radius:12px;padding:10px 4px;font-size:.78rem;font-weight:700}.style-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 12px #ff57224d}
+.group{margin:14px 0}.label{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.84rem;margin-bottom:7px}.value{color:#fff;font-weight:800}input[type=range]{width:100%;accent-color:var(--accent)}input[type=time],input[type=text],input[type=number],select{width:100%;background:#0d0806;color:#fff;border:1px solid var(--line);border-radius:11px;padding:12px;outline:none}select option{background:#211713}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.ing{background:#0003;border:1px solid #ffffff0c;border-radius:12px;padding:12px}.ing small{color:var(--muted);font-size:.78rem}.ing strong{display:block;font-size:1.18rem;margin-top:5px}
+.chartrow{display:flex;justify-content:center;align-items:center;margin:12px 0 18px}.donut{width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent) 0 60%,var(--blue) 60% 95%,var(--gold) 95%)}.donut-inner{width:76px;height:76px;background:var(--bg);border-radius:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;color:var(--muted);font-size:.72rem}.donut-inner strong{color:#fff;font-size:1rem}
+.note,.alert{padding:12px;border-radius:12px;font-size:.82rem;line-height:1.5;margin-top:12px}.note{background:#ff980018;border:1px solid #a75a1d;color:#ffe0b2}.alert{display:none;background:#ff98001a;border:1px solid var(--gold);color:#ffe0b2}
+.timeline-item{display:flex;gap:12px;padding:10px 0 12px 14px;border-left:2px solid var(--accent);margin-left:8px;position:relative}.timeline-item:before{content:"";position:absolute;left:-6px;top:15px;width:10px;height:10px;border-radius:50%;background:var(--accent)}.time-badge{min-width:54px;color:var(--gold);font-weight:800;font-size:.83rem}.time-desc{font-size:.84rem;color:#e4d8d0;line-height:1.45}
+.btn-main{width:100%;background:linear-gradient(135deg,#ff6d24,#f04412);color:white;border:0;border-radius:12px;padding:14px;font-weight:800;margin-top:8px;box-shadow:0 4px 16px #ff572230}.recipe{padding:12px;background:#ffffff08;border:1px solid #ffffff12;border-radius:12px;margin-bottom:9px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.recipe strong{display:block;color:#fff}.recipe small{display:block;color:var(--muted);margin-top:4px;line-height:1.45}.delete{background:#ffffff10;color:#ffc2b0;border:1px solid #ffffff15;border-radius:9px;padding:7px 9px;font-size:.78rem}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:5;display:flex;justify-content:space-around;background:#160d0bf2;backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:9px 0 calc(8px + env(safe-area-inset-bottom))}.nav button{border:0;background:none;color:var(--muted);font-size:.68rem;font-weight:650;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;padding:3px 0}.nav .ico{font-size:1.2rem}.nav button.active{color:var(--accent)}.muted{color:var(--muted);font-size:.82rem;line-height:1.5}.pill{display:inline-block;border:1px solid #ffffff20;padding:4px 8px;border-radius:20px;color:var(--muted);font-size:.72rem;margin:2px}
+@media(min-width:600px){body{padding-bottom:24px}.nav{position:sticky;bottom:0;max-width:600px;margin:12px auto;border:1px solid var(--line);border-radius:15px}.page{padding-top:18px}}
+</style>
+</head>
+<body>
+<header><h1>🍕 Mastro Pizza</h1><p>Calcolatore impasti professionali · Studio cottura</p></header>
+<main>
+<section id="page-calc" class="page active">
+ <div class="card"><div class="card-title">🍕 Stile impasto</div>
+  <div class="style-grid">
+   <button class="style-btn active" data-style="nap">Napoletana</button><button class="style-btn" data-style="can">Canotto</button><button class="style-btn" data-style="teg">In teglia</button><button class="style-btn" data-style="pin">Pinsa</button><button class="style-btn" data-style="scr">Scrocchiarella</button>
+  </div>
+  <div class="group"><div class="label"><span>Panetti / teglie</span><span id="v-balls" class="value">4</span></div><input type="range" id="balls" min="1" max="25" value="4"></div>
+  <div class="group"><div class="label"><span>Peso singolo panetto</span><span id="v-weight" class="value">250 g</span></div><input type="range" id="weight" min="150" max="650" step="5" value="250"></div>
+  <div class="group"><div class="label"><span>Idratazione</span><span id="v-hydr" class="value">65%</span></div><input type="range" id="hydr" min="50" max="90" value="65"></div>
+  <div class="group"><div class="label"><span>Lievitazione totale</span><span id="v-hours" class="value">8 ore</span></div><input type="range" id="hours" min="2" max="72" value="8"></div>
+  <div class="group"><div class="label"><span>Sale</span><span id="v-salt" class="value">2,8%</span></div><input type="range" id="salt" min="2" max="3.5" step=".1" value="2.8"></div>
+  <div class="group"><div class="label"><span>Temperatura ambiente</span><span id="v-temp" class="value">22°C</span></div><input type="range" id="temp" min="16" max="30" value="22"></div>
+ </div>
+ <div class="card"><div class="card-title">📊 Proporzioni e ingredienti</div><div class="chartrow"><div class="donut" id="donut"><div class="donut-inner"><strong id="total">1000 g</strong>impasto</div></div></div>
+  <div class="grid"><div class="ing"><small>🌾 Farina</small><strong id="flour-g">595 g</strong></div><div class="ing"><small>💧 Acqua</small><strong id="water-g">387 g</strong></div><div class="ing"><small>🧪 Lievito fresco*</small><strong id="yeast-g">—</strong></div><div class="ing"><small>🧂 Sale</small><strong id="salt-g">16,7 g</strong></div></div>
+  <p class="muted" style="margin-top:12px">*Stima iniziale per lievito di birra fresco, da adattare a temperatura, farina e gestione dell'impasto. Per lievitazioni lunghe valuta il lievito secco o una quantità inferiore.</p>
+ </div>
+</section>
+<section id="page-time" class="page"><div class="card"><div class="card-title">⏱️ Cronoprogramma impasto</div><div class="group"><div class="label"><span>Ora infornata</span></div><input type="time" id="target-time" value="20:00"></div><div class="group"><div class="label"><span>Riposo in massa prima dello staglio</span></div><select id="bulk"><option value=".25">15% circa del tempo (staglio anticipato)</option><option value=".5" selected>50% del tempo</option><option value=".65">65% del tempo (massa più lunga)</option></select></div><div id="timeline-list"></div><p class="note">Il cronoprogramma è una traccia: la maturazione reale dipende da temperatura, dose di lievito, farina e attività dell'impasto. Controlla sempre volume e consistenza.</p></div></section>
+<section id="page-flour" class="page"><div class="card"><div class="card-title">🌾 Database farine e forza W</div><div class="group"><div class="label"><span>Seleziona farina commerciale</span></div><select id="flour-select"><option value="220">Caputo Classica (W 220 circa)</option><option value="260" selected>Caputo Pizzeria (W 260 circa)</option><option value="300">Caputo Cuoco (W 300 circa)</option><option value="320">Caputo Nuvola (W 320 circa)</option><option value="380">Caputo Manitoba (W 380 circa)</option><option value="290">Le 5 Stagioni Napoletana (W 290 circa)</option><option value="330">Petra 3 (W 330 circa)</option><option value="200">Farina 00 generica (W variabile)</option></select></div><div id="w-alert" class="alert">⚠️ La forza selezionata potrebbe essere poco adatta alla durata o all'idratazione impostata. Verifica la scheda tecnica: i valori W dei prodotti possono variare per versione e mercato.</div><div id="flour-advice" class="note"></div></div></section>
+<section id="page-oven" class="page"><div class="card"><div class="card-title">🔥 Guida settaggio forno</div><div class="group"><select id="oven-select"><option value="dom-stat">Forno domestico statico (max 250–300°C)</option><option value="dom-vent">Forno domestico ventilato</option><option value="effe">Forno elettrico ad alta temperatura</option><option value="ooni">Forno a gas / legna (Ooni, Gozney e simili)</option></select></div><div id="oven-desc" class="note"></div></div></section>
+<section id="page-diary" class="page"><div class="card"><div class="card-title">📖 Salva la ricetta</div><div class="group"><input type="text" id="recipe-name" maxlength="80" placeholder="Nome ricetta (es. Napoletana del sabato)"></div><button class="btn-main" id="save-btn">💾 Salva nel diario</button><p class="muted" style="margin-top:10px">Le ricette vengono salvate in questo browser su questo dispositivo. Non vengono sincronizzate automaticamente con altri dispositivi.</p></div><div class="card"><div class="card-title">📋 Le mie ricette</div><div id="recipe-list" class="muted">Nessuna ricetta salvata.</div><button class="delete" id="export-btn" style="margin-top:10px">Esporta ricette JSON</button> <button class="delete" id="clear-btn" style="margin-top:10px">Cancella tutte</button></div></section>
+</main>
+<nav class="nav" aria-label="Navigazione principale"><button class="active" data-page="calc"><span class="ico">🍕</span>Calcola</button><button data-page="time"><span class="ico">⏱️</span>Timeline</button><button data-page="flour"><span class="ico">🌾</span>Farine</button><button data-page="oven"><span class="ico">🔥</span>Cottura</button><button data-page="diary"><span class="ico">📖</span>Diario</button></nav>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+let currentStyle='nap';
+const styles={nap:{hydr:65,weight:250},can:{hydr:70,weight:260},teg:{hydr:75,weight:500},pin:{hydr:80,weight:280},scr:{hydr:58,weight:220}};
+const fmt=(n,d=1)=>Number(n).toLocaleString('it-IT',{maximumFractionDigits:d,minimumFractionDigits:0});
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));if(id==='time')updateTimeline();}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+document.querySelectorAll('.style-btn').forEach(b=>b.addEventListener('click',()=>{currentStyle=b.dataset.style;document.querySelectorAll('.style-btn').forEach(x=>x.classList.toggle('active',x===b));$('hydr').value=styles[currentStyle].hydr;$('weight').value=styles[currentStyle].weight;calc();}));
+['balls','weight','hydr','hours','salt','temp','flour-select','bulk'].forEach(id=>$(id).addEventListener('input',()=>{calc();if(id==='hours'||id==='target-time'||id==='bulk')updateTimeline();}));
+$('target-time').addEventListener('change',updateTimeline);
+function calc(){
+ const balls=+$('balls').value, weight=+$('weight').value, h=+$('hydr').value/100, hours=+$('hours').value, saltPct=+$('salt').value/100, temp=+$('temp').value, W=+$('flour-select').value;
+ const total=balls*weight, flour=total/(1+h+saltPct), water=flour*h, salt=flour*saltPct;
+ // Heuristic estimate only: scales with time and temperature; it is not a universal fermentation formula.
+ let yeastPct=0.012*Math.sqrt(8/hours)*Math.pow(2,(22-temp)/10);
+ yeastPct=Math.max(.0005,Math.min(.025,yeastPct));
+ const yeast=flour*yeastPct;
+ $('v-balls').textContent=balls;$('v-weight').textContent=weight+' g';$('v-hydr').textContent=Math.round(h*100)+'%';$('v-hours').textContent=hours+' ore';$('v-salt').textContent=fmt(+$('salt').value)+'%';$('v-temp').textContent=temp+'°C';
+ $('total').textContent=fmt(total,0)+' g';$('flour-g').textContent=fmt(flour)+' g';$('water-g').textContent=fmt(water)+' g';$('salt-g').textContent=fmt(salt)+' g';$('yeast-g').textContent=yeast<1?fmt(yeast,2)+' g':fmt(yeast)+' g';
+ const flourDeg=360*flour/total, waterDeg=360*water/total, yeastDeg=360*yeast/total;
+ $('donut').style.background=`conic-gradient(var(--accent) 0deg ${flourDeg}deg,var(--blue) ${flourDeg}deg ${flourDeg+waterDeg}deg,var(--gold) ${flourDeg+waterDeg}deg 360deg)`;
+ const warn=(hours>16&&W<270)||(h>.72&&W<280)||(h>.8&&W<320);$('w-alert').style.display=warn?'block':'none';
+ $('flour-advice').textContent=`Farina selezionata: W ${W}. Con ${hours} ore, ${Math.round(h*100)}% d'idratazione e ${temp}°C, usa questi valori come orientamento e segui le indicazioni del produttore.`;
+}
+function updateTimeline(){
+ const target=$('target-time').value;if(!target)return;const hours=+$('hours').value,ratio=+$('bulk').value;
+ const [hh,mm]=target.split(':').map(Number);let end=new Date();end.setHours(hh,mm,0,0);
+ let start=new Date(end.getTime()-hours*3600000);const staglio=new Date(start.getTime()+hours*ratio*3600000);const kneadEnd=new Date(start.getTime()+30*60000);const fmtTime=d=>d.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
+ const steps=[{t:start,d:'Inizio impasto e prima fase di riposo'},{t:kneadEnd,d:'Pieghe di rinforzo, se previste, e chiusura impasto'},{t:staglio,d:'Staglio e formazione dei panetti'},{t:end,d:'🔥 Infornata e pizza pronta'}];
+ $('timeline-list').replaceChildren();steps.forEach(s=>{const row=document.createElement('div');row.className='timeline-item';const t=document.createElement('div');t.className='time-badge';t.textContent=fmtTime(s.t);const d=document.createElement('div');d.className='time-desc';d.textContent=s.d;row.append(t,d);$('timeline-list').append(row);});
+}
+const ovenText={
+'dom-stat':'Preriscalda il forno al massimo per almeno 40–60 minuti con pietra o acciaio adatti al forno. Posiziona secondo le istruzioni del produttore. I tempi possono essere di 5–8 minuti o più, in base alla temperatura reale della superficie.',
+'dom-vent':'Preriscalda bene pietra o acciaio. La ventilazione può asciugare e colorire più rapidamente: controlla spesso e regola posizione e modalità in base al tuo forno.',
+'effe':'Segui le temperature raccomandate dal produttore per platea e cielo. A temperature elevate la cottura può richiedere circa 60–120 secondi, ma dipende da impasto e carico.',
+'ooni':'Misura la temperatura della pietra con un termometro IR e segui il manuale del forno. Ruota la pizza durante la cottura e controlla spesso: la fiamma può bruciare il cornicione in pochi secondi.'
+};
+function updateOven(){$('oven-desc').textContent=ovenText[$('oven-select').value];}
+$('oven-select').addEventListener('change',updateOven);
+function readRecipes(){try{return JSON.parse(localStorage.getItem('mastroPizzaRecipes')||'[]')}catch{return []}}
+function writeRecipes(arr){try{localStorage.setItem('mastroPizzaRecipes',JSON.stringify(arr));return true}catch{return false}}
+function renderRecipes(){
+ const list=$('recipe-list');list.replaceChildren();const arr=readRecipes();
+ if(!arr.length){list.textContent='Nessuna ricetta salvata.';return}
+ arr.forEach((r,i)=>{const card=document.createElement('div');card.className='recipe';const info=document.createElement('div');const title=document.createElement('strong');title.textContent=r.name;const details=document.createElement('small');details.textContent=`${r.balls} panetti · ${r.weight} g · Farina ${r.flour} g · Acqua ${r.water} g · Sale ${r.salt} g · ${r.hydr}% idratazione · ${r.hours} ore · lievito ${r.yeast} g`;info.append(title,details);const del=document.createElement('button');del.className='delete';del.textContent='Elimina';del.addEventListener('click',()=>{const a=readRecipes();a.splice(i,1);writeRecipes(a);renderRecipes()});card.append(info,del);list.append(card)});
+}
+$('save-btn').addEventListener('click',()=>{
+ const balls=+$('balls').value,weight=+$('weight').value,h=+$('hydr').value,hours=+$('hours').value,saltPct=+$('salt').value/100,total=balls*weight,flour=total/(1+h/100+saltPct),water=flour*h/100,salt=flour*saltPct,temp=+$('temp').value;
+ let yeast=flour*Math.max(.0005,Math.min(.025,.012*Math.sqrt(8/hours)*Math.pow(2,(22-temp)/10)));
+ const name=$('recipe-name').value.trim()||'Mastro Pizza · '+new Date().toLocaleDateString('it-IT');
+ const arr=readRecipes();arr.unshift({name,balls,weight,hydr:h,hours,flour:fmt(flour),water:fmt(water),salt:fmt(salt),yeast:fmt(yeast,2),W:+$('flour-select').value,style:currentStyle,date:new Date().toISOString()});
+ if(!writeRecipes(arr)){alert('Impossibile salvare: la memoria del browser potrebbe essere disattivata o piena.');return}
+ $('recipe-name').value='';renderRecipes();alert('Ricetta salvata nel diario su questo dispositivo.');
+});
+$('export-btn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(readRecipes(),null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='mastro-pizza-ricette.json';a.click();URL.revokeObjectURL(url);});
+$('clear-btn').addEventListener('click',()=>{if(confirm('Vuoi cancellare tutte le ricette salvate su questo dispositivo?')){writeRecipes([]);renderRecipes()}});
+calc();updateTimeline();updateOven();renderRecipes();
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(err => console.warn('Service worker non registrato', err)));
+</script>
+</body></html>
