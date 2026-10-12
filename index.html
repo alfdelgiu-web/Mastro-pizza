@@ -7,10 +7,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mastro Pizza">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Mastro Pizza — Studio impasti</title>
 <meta name="description" content="Calcola impasti, pianifica fermentazione, salva ricette e gestisci la cottura della pizza.">
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="apple-touch-icon" href="./icon-192.png">
 <style>
 :root{color-scheme:dark;--bg:#090909;--panel:#171717;--panel-hi:#202020;--accent:#ff6418;--accent2:#ff9a43;--gold:#f6c568;--blue:#35bce8;--text:#fffaf5;--muted:#aaa19a;--line:#3d2a20;--radius:20px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#57260f 0%,#24130b 23%,#0a0a0a 59%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;padding-bottom:calc(92px + env(safe-area-inset-bottom))}button,select,input{font:inherit}
@@ -75,6 +75,20 @@ body{background:radial-gradient(ellipse at 50% -14%,#61260e 0,#211109 24%,#09080
 @media(min-width:600px){main{padding-bottom:20px}.craft-stats strong{font-size:1.15rem}}
 </style>
 
+
+<style id="studio-final-redesign">
+:root{--bg:#080706;--panel:#14110f;--accent:#ff6422;--accent2:#ffb36b;--line:#5b351f;--radius:20px}
+html{background:#080706}body{background:radial-gradient(ellipse at 50% -8%,#4c210e 0,#1a100b 27%,#080706 63%);padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+.app-header{padding:8px 12px 10px;background:linear-gradient(180deg,#1b0e08f5,#100b08dd 80%,transparent)}.brand-mark{gap:7px}.brand-mark h1{font-size:clamp(1.8rem,7vw,2.35rem);letter-spacing:-1.5px}.brand-pizza{font-size:1.8rem}.app-header p{font-size:.53rem;letter-spacing:1.8px}
+.page{max-width:590px;padding:7px 12px 24px}.pizza-hero{height:174px;border-radius:23px;margin-bottom:12px;background:linear-gradient(112deg,#100805 0%,#241006 44%,#752909 100%);border-color:#9a4a25}.pizza-hero:before{width:210px;height:210px;right:-20px;top:-17px;background:radial-gradient(circle at 49% 45%,#f8dfa0 0 4%,#b8340e 5% 12%,#e7b05f 13% 18%,#d94a13 19% 30%,#f4c981 31% 36%,#b72e0b 37% 52%,#f2bd6e 53% 59%,#8e2709 60% 66%,#291006 67%);}.hero-copy{left:17px;top:20px}.hero-copy h2{font-size:1.48rem}.hero-copy p{font-size:.76rem}.hero-chip{display:inline-flex;align-items:center;gap:6px;margin-top:4px;padding:5px 8px;border:1px solid #ff9b4a4d;border-radius:20px;background:#2a150bb8;color:#ffbf86;font-size:.48rem;font-weight:900;letter-spacing:1px}
+.card{padding:14px;border-radius:21px;border-color:#4b3023;background:linear-gradient(145deg,#1c1916f5,#100f0efa);box-shadow:0 11px 28px #0008,inset 0 1px #ffffff0b}.card-title{font-size:.96rem;padding-bottom:10px;margin-bottom:12px}.title-icon{width:29px;height:29px;border-radius:10px}.style-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-bottom:13px}.style-btn{grid-column:span 2;min-height:44px;border-radius:12px;font-size:.73rem}.style-btn:nth-child(4){grid-column:2/span 2}.style-btn:nth-child(5){grid-column:4/span 2}.quick-presets{margin:0 0 14px;padding:9px;background:#0e0c0a;border-color:#30241c;border-radius:13px}.quick-label{font-size:.53rem}.preset-btn{border-radius:10px;font-size:.65rem;padding:9px 5px}.group{margin:12px 0 14px}.label{font-size:.79rem;margin-bottom:6px}.value{font-size:.96rem}.group input[type=range]{height:24px}
+.ingredient-overview{grid-template-columns:124px 1fr;gap:12px}.donut{width:114px;height:114px}.donut-inner{width:78px;height:78px}.chart-legend{gap:8px}.chart-legend div{font-size:.72rem}.chart-legend b{font-size:.8rem}.grid{gap:8px}.ing{min-height:75px;padding:11px;border-radius:14px}.ing strong{font-size:1.1rem}.result-actions{display:grid;grid-template-columns:.85fr 1.15fr;gap:8px;margin-top:14px}.result-actions button{min-height:45px;padding:9px 7px;border-radius:12px;font-size:.73rem}.secondary-action{background:#211914;color:#ffbd8b}.primary-action{background:linear-gradient(120deg,#ff8e3b,#ed480c);color:#fff;border:1px solid #ff9a53;box-shadow:0 6px 18px #f45a1728}.action-feedback{font-size:.72rem;color:#ffc18d;text-align:center}.action-feedback:not(:empty){margin-top:8px;padding:8px;border-radius:9px;background:#302014}
+.craft-stats{gap:7px}.craft-stats>div{padding:10px 8px;border-radius:13px}.craft-stats small{font-size:.49rem}.craft-stats strong{font-size:.98rem}.timer-panel{padding:12px;border-radius:15px}.timer-panel strong{font-size:1.65rem}.timer-buttons button{min-width:80px}.checklist label{min-height:42px}.nav{padding:7px 0 calc(6px + env(safe-area-inset-bottom));background:rgba(13,11,9,.97);border-top-color:#56321f}.nav button{font-size:.62rem;gap:4px}.nav .ico{font-size:1.35rem}.nav button.active{color:#ff9b50}.nav button.active .ico{color:#ff8538}
+.timeline-item{padding-top:12px;padding-bottom:15px}.time-badge{min-width:54px}.recipe{align-items:center}.recipe small{font-size:.7rem}.delete{min-height:38px}
+@media(max-width:380px){.page{padding-left:10px;padding-right:10px}.pizza-hero{height:153px}.hero-copy h2{font-size:1.35rem}.hero-copy{top:17px;left:14px}.style-btn{font-size:.66rem;min-height:42px}.preset-btn{font-size:.58rem;padding:8px 3px}.ingredient-overview{grid-template-columns:103px 1fr;gap:7px}.donut{width:98px;height:98px}.donut-inner{width:69px;height:69px}.result-actions button{font-size:.65rem}.craft-stats strong{font-size:.86rem}}
+@media(min-width:600px){.app-header{padding-top:14px}.page{padding-top:12px}.pizza-hero{height:190px}}
+</style>
+
 </head>
 <body>
 <header class="app-header"><div class="brand-mark"><span class="brand-pizza">🍕</span><h1>Mastro Pizza</h1></div><p>DOUGH LAB · CALCOLA · PIANIFICA · INFORNA</p><div class="header-badges"><span>🔥 Artigianale</span><span>•</span><span>🍅 Fatto per la pizza</span></div></header>
@@ -85,6 +99,7 @@ body{background:radial-gradient(ellipse at 50% -14%,#61260e 0,#211109 24%,#09080
   <div class="style-grid">
    <button class="style-btn active" data-style="nap">Napoletana</button><button class="style-btn" data-style="can">Canotto</button><button class="style-btn" data-style="teg">In teglia</button><button class="style-btn" data-style="pin">Pinsa</button><button class="style-btn" data-style="scr">Scrocchiarella</button>
   </div>
+  <div class="quick-presets"><div class="quick-label">PARTI DA UN PROFILO</div><button class="preset-btn selected" data-preset="classic">Classica</button><button class="preset-btn" data-preset="high">Alta idratazione</button><button class="preset-btn" data-preset="long">Lunga maturazione</button></div>
   <div class="group"><div class="label"><span>Panetti / teglie</span><span id="v-balls" class="value">4</span></div><input type="range" id="balls" min="1" max="25" value="4"></div>
   <div class="group"><div class="label"><span>Peso singolo panetto</span><span id="v-weight" class="value">250 g</span></div><input type="range" id="weight" min="150" max="650" step="5" value="250"></div>
   <div class="group"><div class="label"><span>Idratazione</span><span id="v-hydr" class="value">65%</span></div><input type="range" id="hydr" min="50" max="90" value="65"></div>
@@ -92,9 +107,10 @@ body{background:radial-gradient(ellipse at 50% -14%,#61260e 0,#211109 24%,#09080
   <div class="group"><div class="label"><span>Sale</span><span id="v-salt" class="value">2,8%</span></div><input type="range" id="salt" min="2" max="3.5" step=".1" value="2.8"></div>
   <div class="group"><div class="label"><span>Temperatura ambiente</span><span id="v-temp" class="value">22°C</span></div><input type="range" id="temp" min="16" max="30" value="22"></div>
  </div>
- <div class="card"><div class="card-title"><span class="title-icon">▥</span> Proporzioni e ingredienti</div><div class="ingredient-overview"><div class="chartrow"><div class="donut" id="donut"><div class="donut-inner"><strong id="total">1000 g</strong><span>IMPASTO TOTALE</span></div></div></div><div class="chart-legend"><div><i class="legend-flour"></i><span>Farina</span><b id="legend-flour">—</b></div><div><i class="legend-water"></i><span>Acqua</span><b id="legend-water">—</b></div><div><i class="legend-salt"></i><span>Sale e lievito</span><b>In grammi</b></div></div></div>
+ <div class="card"><div class="card-title"><span class="title-icon">▥</span> Proporzioni e ingredienti</div><div class="ingredient-overview"><div class="chartrow"><div class="donut" id="donut"><div class="donut-inner"><strong id="total">1000 g</strong><span>IMPASTO TOTALE</span></div></div></div><div class="chart-legend"><div><i class="legend-flour"></i><span>Farina</span><b id="legend-flour">—</b></div><div><i class="legend-water"></i><span>Acqua</span><b id="legend-water">—</b></div><div><i class="legend-salt"></i><span>Sale</span><b id="legend-salt">—</b></div></div></div>
   <div class="grid"><div class="ing"><small>🌾 Farina</small><strong id="flour-g">595 g</strong></div><div class="ing"><small>💧 Acqua</small><strong id="water-g">387 g</strong></div><div class="ing"><small>🧪 Lievito fresco*</small><strong id="yeast-g">—</strong></div><div class="ing"><small>🧂 Sale</small><strong id="salt-g">16,7 g</strong></div></div>
-  <p class="muted" style="margin-top:12px">*Stima iniziale per lievito di birra fresco, da adattare a temperatura, farina e gestione dell'impasto. Per lievitazioni lunghe valuta il lievito secco o una quantità inferiore.</p>
+  <p class="muted" style="margin-top:12px">*Il lievito è una stima orientativa, non una formula universale: controlla maturazione, temperatura reale, farina e tempi.</p>
+  <div class="result-actions"><button id="copy-summary" class="secondary-action">⧉ Copia dosi</button><button id="jump-timeline" class="primary-action">Pianifica impasto <span>↗</span></button></div><p id="action-feedback" class="action-feedback" aria-live="polite"></p>
  </div>
 <div class="card craft-card"><div class="card-title"><span class="title-icon">✦</span> Il tuo banco di lavoro <span class="live-pill">LIVE</span></div>
   <div class="craft-stats"><div><small>RESA TOTALE</small><strong id="craft-total">1.000 g</strong></div><div><small>PEZZI</small><strong id="craft-pieces">4</strong></div><div><small>MATURAZIONE</small><strong id="craft-maturity">8 h</strong></div></div>
@@ -120,22 +136,24 @@ const $=id=>document.getElementById(id);
 let currentStyle='nap';
 const styles={nap:{hydr:65,weight:250},can:{hydr:70,weight:260},teg:{hydr:75,weight:500},pin:{hydr:80,weight:280},scr:{hydr:58,weight:220}};
 const fmt=(n,d=1)=>Number(n).toLocaleString('it-IT',{maximumFractionDigits:d,minimumFractionDigits:0});
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));if(id==='time')updateTimeline();}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+id));document.querySelectorAll('.nav button').forEach(b=>{b.classList.toggle('active',b.dataset.page===id);b.setAttribute('aria-current',b.dataset.page===id?'page':'false')});if(id==='time')updateTimeline();window.scrollTo({top:0,behavior:'smooth'});}
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 document.querySelectorAll('.style-btn').forEach(b=>b.addEventListener('click',()=>{currentStyle=b.dataset.style;document.querySelectorAll('.style-btn').forEach(x=>x.classList.toggle('active',x===b));$('hydr').value=styles[currentStyle].hydr;$('weight').value=styles[currentStyle].weight;calc();}));
-['balls','weight','hydr','hours','salt','temp','flour-select','bulk'].forEach(id=>$(id).addEventListener('input',()=>{calc();if(id==='hours'||id==='target-time'||id==='bulk')updateTimeline();}));
+['balls','weight','hydr','hours','salt','temp','flour-select','bulk'].forEach(id=>$(id).addEventListener('input',()=>{calc();if(id==='hours'||id==='bulk')updateTimeline();}));
+$('flour-select').addEventListener('change',calc);$('bulk').addEventListener('change',updateTimeline);
 $('target-time').addEventListener('change',updateTimeline);
 function calc(){
  const balls=+$('balls').value, weight=+$('weight').value, h=+$('hydr').value/100, hours=+$('hours').value, saltPct=+$('salt').value/100, temp=+$('temp').value, W=+$('flour-select').value;
- const total=balls*weight, flour=total/(1+h+saltPct), water=flour*h, salt=flour*saltPct;
- // Heuristic estimate only: scales with time and temperature; it is not a universal fermentation formula.
- let yeastPct=0.012*Math.sqrt(8/hours)*Math.pow(2,(22-temp)/10);
- yeastPct=Math.max(.0005,Math.min(.025,yeastPct));
- const yeast=flour*yeastPct;
+ const total=balls*weight;
+ // Stima prudente del lievito fresco: solo punto di partenza, da verificare con la maturazione reale.
+ let yeastPct=0.003*Math.sqrt(8/hours)*Math.pow(2,(22-temp)/10);
+ yeastPct=Math.max(.0002,Math.min(.01,yeastPct));
+ // Il peso totale richiesto comprende tutti gli ingredienti, lievito incluso.
+ const flour=total/(1+h+saltPct+yeastPct), water=flour*h, salt=flour*saltPct, yeast=flour*yeastPct;
  $('v-balls').textContent=balls;$('v-weight').textContent=weight+' g';$('v-hydr').textContent=Math.round(h*100)+'%';$('v-hours').textContent=hours+' ore';$('v-salt').textContent=fmt(+$('salt').value)+'%';$('v-temp').textContent=temp+'°C';
   [['balls',balls],['weight',weight],['hydr',Math.round(h*100)],['hours',hours],['salt',+$('salt').value],['temp',temp]].forEach(([id,v])=>{const el=$(id),min=+el.min,max=+el.max,pct=(v-min)/(max-min)*100;el.style.setProperty('--range-pct',pct+'%');el.style.background='transparent';el.style.setProperty('background-image',`linear-gradient(90deg,#ff7028 0%,#f7a14d ${pct}%,#302a26 ${pct}%,#302a26 100%)`);});
- $('total').textContent=fmt(total,0)+' g';if($('craft-total'))$('craft-total').textContent=fmt(total,0)+' g';if($('craft-pieces'))$('craft-pieces').textContent=balls;if($('craft-maturity'))$('craft-maturity').textContent=hours+' h';$('flour-g').textContent=fmt(flour)+' g';$('water-g').textContent=fmt(water)+' g';$('salt-g').textContent=fmt(salt)+' g';$('yeast-g').textContent=yeast<1?fmt(yeast,2)+' g':fmt(yeast)+' g';if($('legend-flour'))$('legend-flour').textContent=fmt(flour,0)+' g';if($('legend-water'))$('legend-water').textContent=fmt(water,0)+' g';
- const flourDeg=360*flour/total, waterDeg=360*water/total, yeastDeg=360*yeast/total;
+ $('total').textContent=fmt(total,0)+' g';if($('craft-total'))$('craft-total').textContent=fmt(total,0)+' g';if($('craft-pieces'))$('craft-pieces').textContent=balls;if($('craft-maturity'))$('craft-maturity').textContent=hours+' h';$('flour-g').textContent=fmt(flour)+' g';$('water-g').textContent=fmt(water)+' g';$('salt-g').textContent=fmt(salt)+' g';$('yeast-g').textContent=yeast<1?fmt(yeast,2)+' g':fmt(yeast)+' g';if($('legend-flour'))$('legend-flour').textContent=fmt(flour,0)+' g';if($('legend-water'))$('legend-water').textContent=fmt(water,0)+' g';if($('legend-salt'))$('legend-salt').textContent=fmt(salt,1)+' g';
+ const flourDeg=360*flour/total, waterDeg=360*water/total, saltDeg=360*(salt+yeast)/total;
  $('donut').style.background=`conic-gradient(var(--accent) 0deg ${flourDeg}deg,var(--blue) ${flourDeg}deg ${flourDeg+waterDeg}deg,var(--gold) ${flourDeg+waterDeg}deg 360deg)`;
  const warn=(hours>16&&W<270)||(h>.72&&W<280)||(h>.8&&W<320);$('w-alert').style.display=warn?'block':'none';
  $('flour-advice').textContent=`Farina selezionata: W ${W}. Con ${hours} ore, ${Math.round(h*100)}% d'idratazione e ${temp}°C, usa questi valori come orientamento e segui le indicazioni del produttore.`;
@@ -163,14 +181,15 @@ function renderRecipes(){
  arr.forEach((r,i)=>{const card=document.createElement('div');card.className='recipe';const info=document.createElement('div');const title=document.createElement('strong');title.textContent=r.name;const details=document.createElement('small');details.textContent=`${r.balls} panetti · ${r.weight} g · Farina ${r.flour} g · Acqua ${r.water} g · Sale ${r.salt} g · ${r.hydr}% idratazione · ${r.hours} ore · lievito ${r.yeast} g`;info.append(title,details);const del=document.createElement('button');del.className='delete';del.textContent='Elimina';del.addEventListener('click',()=>{const a=readRecipes();a.splice(i,1);writeRecipes(a);renderRecipes()});card.append(info,del);list.append(card)});
 }
 $('save-btn').addEventListener('click',()=>{
- const balls=+$('balls').value,weight=+$('weight').value,h=+$('hydr').value,hours=+$('hours').value,saltPct=+$('salt').value/100,total=balls*weight,flour=total/(1+h/100+saltPct),water=flour*h/100,salt=flour*saltPct,temp=+$('temp').value;
- let yeast=flour*Math.max(.0005,Math.min(.025,.012*Math.sqrt(8/hours)*Math.pow(2,(22-temp)/10)));
+ const balls=+$('balls').value,weight=+$('weight').value,h=+$('hydr').value,hours=+$('hours').value,saltPct=+$('salt').value/100,total=balls*weight,temp=+$('temp').value;
+ const yeastPct=Math.max(.0002,Math.min(.01,.003*Math.sqrt(8/hours)*Math.pow(2,(22-temp)/10)));
+ const flour=total/(1+h/100+saltPct+yeastPct),water=flour*h/100,salt=flour*saltPct,yeast=flour*yeastPct;
  const name=$('recipe-name').value.trim()||'Mastro Pizza · '+new Date().toLocaleDateString('it-IT');
  const arr=readRecipes();arr.unshift({name,balls,weight,hydr:h,hours,flour:fmt(flour),water:fmt(water),salt:fmt(salt),yeast:fmt(yeast,2),W:+$('flour-select').value,style:currentStyle,date:new Date().toISOString()});
  if(!writeRecipes(arr)){alert('Impossibile salvare: la memoria del browser potrebbe essere disattivata o piena.');return}
  $('recipe-name').value='';renderRecipes();alert('Ricetta salvata nel diario su questo dispositivo.');
 });
-$('export-btn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(readRecipes(),null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='mastro-pizza-ricette.json';a.click();URL.revokeObjectURL(url);});
+$('export-btn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(readRecipes(),null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='mastro-pizza-ricette.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 $('clear-btn').addEventListener('click',()=>{if(confirm('Vuoi cancellare tutte le ricette salvate su questo dispositivo?')){writeRecipes([]);renderRecipes()}});
 // Interazioni rapide: preset, copia dosi e accesso diretto alla timeline.
 document.querySelectorAll('[data-preset]').forEach(btn=>btn.addEventListener('click',()=>{
@@ -182,13 +201,13 @@ document.querySelectorAll('input[type="range"]').forEach(el=>el.addEventListener
 $('copy-summary').addEventListener('click',async()=>{const summary=`Mastro Pizza\n${$('v-balls').textContent} panetti da ${$('v-weight').textContent}\nFarina: ${$('flour-g').textContent}\nAcqua: ${$('water-g').textContent}\nSale: ${$('salt-g').textContent}\nLievito fresco: ${$('yeast-g').textContent}\nIdratazione: ${$('v-hydr').textContent}\nLievitazione: ${$('v-hours').textContent}\nTemperatura: ${$('v-temp').textContent}`;const feedback=$('action-feedback');try{await navigator.clipboard.writeText(summary);feedback.textContent='Dosi copiate negli appunti ✓'}catch{feedback.textContent=summary.replaceAll('\n',' · ')} });
 $('jump-timeline').addEventListener('click',()=>{showPage('time');window.scrollTo({top:0,behavior:'smooth'})});
 // Timer locale e checklist: non richiedono account o connessione.
-let timerSeconds=0,timerInterval=null,timerRunning=false;
-function paintTimer(){const m=Math.floor(timerSeconds/60),sec=timerSeconds%60;$('timer-display').textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');$('timer-status').textContent=timerRunning?'Timer in corso…':timerSeconds?'Timer in pausa':'Pronto quando lo sei tu';$('timer-start').textContent=timerRunning?'Pausa':(timerSeconds?'Riprendi':'Avvia')}
-$('timer-start').addEventListener('click',()=>{if(timerRunning){clearInterval(timerInterval);timerInterval=null;timerRunning=false}else{timerRunning=true;timerInterval=setInterval(()=>{timerSeconds++;paintTimer()},1000)}paintTimer()});
+let timerSeconds=0,timerInterval=null,timerRunning=false,timerStartedAt=0;
+function paintTimer(){if(timerRunning)timerSeconds=Math.floor((Date.now()-timerStartedAt)/1000);const m=Math.floor(timerSeconds/60),sec=timerSeconds%60;$('timer-display').textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');$('timer-status').textContent=timerRunning?'Timer in corso…':timerSeconds?'Timer in pausa':'Pronto quando lo sei tu';$('timer-start').textContent=timerRunning?'Pausa':(timerSeconds?'Riprendi':'Avvia')}
+$('timer-start').addEventListener('click',()=>{if(timerRunning){paintTimer();clearInterval(timerInterval);timerInterval=null;timerRunning=false}else{timerStartedAt=Date.now()-timerSeconds*1000;timerRunning=true;clearInterval(timerInterval);timerInterval=setInterval(paintTimer,250)}paintTimer()});
 $('timer-reset').addEventListener('click',()=>{clearInterval(timerInterval);timerInterval=null;timerRunning=false;timerSeconds=0;paintTimer()});
 function updateChecklist(){const checks=[...document.querySelectorAll('.prep-check')],done=checks.filter(c=>c.checked).length;$('check-progress').textContent=done+' di '+checks.length;$('check-bar').style.width=(done/checks.length*100)+'%'}
 document.querySelectorAll('.prep-check').forEach(c=>c.addEventListener('change',updateChecklist));
 calc();updateTimeline();updateOven();renderRecipes();refreshRangeFills();paintTimer();updateChecklist();
-if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
 </body></html>
