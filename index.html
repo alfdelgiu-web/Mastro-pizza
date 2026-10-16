@@ -159,7 +159,48 @@ html{background:#080706}body{background:radial-gradient(ellipse at 50% -8%,#4c21
 <section id="page-time" class="page"><div class="card"><div class="card-title"><span class="title-icon">◷</span> Cronoprogramma impasto</div><div class="group"><div class="label"><span>Ora infornata</span></div><input type="time" id="target-time" value="20:00"></div><div class="group"><div class="label"><span>Riposo in massa prima dello staglio</span></div><select id="bulk"><option value=".25">25% del tempo (staglio anticipato)</option><option value=".5" selected>50% del tempo</option><option value=".65">65% del tempo (massa più lunga)</option></select></div><div id="timeline-list"></div><p class="note">Il cronoprogramma è una traccia: la maturazione reale dipende da temperatura, dose di lievito, farina e attività dell'impasto. Controlla sempre volume e consistenza.</p></div></section>
 <section id="page-flour" class="page">
  <div class="module-intro"><div class="module-art">🌾</div><div><strong>La biblioteca delle farine</strong><p>Scegli la forza in base a idratazione e durata. I valori W sono indicativi: verifica sempre la scheda del produttore.</p></div></div>
- <div class="card"><div class="card-title"><span class="title-icon">✳</span> Seleziona la tua farina</div><div class="group"><div class="label"><span>Farina commerciale</span><span class="value" id="selected-w-label">W 260</span></div><select id="flour-select"><option value="220">Caputo Classica (W 220 circa)</option><option value="260" selected>Caputo Pizzeria (W 260 circa)</option><option value="300">Caputo Cuoco (W 300 circa)</option><option value="320">Caputo Nuvola (W 320 circa)</option><option value="380">Caputo Manitoba (W 380 circa)</option><option value="290">Le 5 Stagioni Napoletana (W 290 circa)</option><option value="250">Molino Vigevano Vera Napoli (W 250–270)</option><option value="310">Molino Vigevano Costiera (W 290–330)</option><option value="345">Molino Vigevano Tramonti (W 330–360)</option><option value="350">Molino Vigevano Pizza in Teglia (W 350)</option><option value="250">Petra 0 HP (W 240–260)</option><option value="330">Petra HP Pizza (W 320–340)</option><option value="330">Petra 5072 (W 320–340)</option><option value="260">Petra 3 (W non dichiarato)</option><option value="200">Farina 00 generica (W variabile)</option></select></div><div class="data-chips"><div class="data-chip"><small>FORZA W</small><strong id="flour-w-stat">260</strong></div><div class="data-chip"><small>IDRATAZIONE</small><strong id="flour-hydr-stat">65%</strong></div><div class="data-chip"><small>MATURAZIONE</small><strong id="flour-hours-stat">8 h</strong></div></div><div id="w-alert" class="alert">⚠️ La forza selezionata potrebbe essere poco adatta alla durata o all'idratazione impostata. Verifica la scheda tecnica: i valori W dei prodotti possono variare per versione e mercato.</div><div id="flour-advice" class="note"></div>
+ <div class="card"><div class="card-title"><span class="title-icon">✳</span> Seleziona la tua farina</div><div class="group"><div class="label"><span>Farina commerciale</span><span class="value" id="selected-w-label">W 260</span></div><select id="flour-select">
+<optgroup label="Caputo — valori indicativi da verificare sulla confezione">
+<option value="230" data-wlabel="220–240">Caputo Classica (W 220–240 circa)</option>
+<option value="270" data-wlabel="260–280" selected>Caputo Pizzeria / Saccorosso (W 260–280 circa)</option>
+<option value="310" data-wlabel="300–320">Caputo Cuoco (W 300–320 circa)</option>
+<option value="270" data-wlabel="260–280">Caputo Nuvola (W 260–280 circa)</option>
+<option value="330" data-wlabel="320–340">Caputo Nuvola Super (W 320–340 circa)</option>
+<option value="310" data-wlabel="300–320">Caputo Aria (W 300–320 circa)</option>
+<option value="370" data-wlabel="360–380">Caputo Manitoba Oro (W 360–380 circa)</option>
+<option value="380" data-wlabel="circa 380">Caputo Manitoba (circa W 380, verificare confezione)</option>
+</optgroup>
+<optgroup label="Molino Vigevano — valori dichiarati dal produttore">
+<option value="215" data-wlabel="200–230">Verace (W 200–230)</option>
+<option value="260" data-wlabel="250–270">Vera Napoli (W 250–270)</option>
+<option value="310" data-wlabel="290–330">Costiera (W 290–330)</option>
+<option value="345" data-wlabel="330–360">Tramonti (W 330–360)</option>
+<option value="280" data-wlabel="270–290">Vesuvio professionale (W 270–290)</option>
+<option value="290" data-wlabel="290">Vesuvio casalinga (W 290)</option>
+<option value="345" data-wlabel="330–360">aRoma (W 330–360)</option>
+<option value="350" data-wlabel="350">Pizza in Teglia (W 350)</option>
+<option value="300" data-wlabel="non indicato in questa scheda">Oro Fibra Uno (W da verificare sulla scheda)</option>
+<option value="300" data-wlabel="non indicato in questa scheda">Oro Fibra Due (W da verificare sulla scheda)</option>
+<option value="300" data-wlabel="non indicato in questa scheda">Moreschina (W da verificare sulla scheda)</option>
+<option value="300" data-wlabel="non indicato in questa scheda">Moreschina Ricca (W da verificare sulla scheda)</option>
+<option value="300" data-wlabel="non indicato in questa scheda">Farina per Pizza Tipo 1 (W da verificare sulla confezione)</option>
+</optgroup>
+<optgroup label="Petra — farine per pizza">
+<option value="250" data-wlabel="240–260">Petra 0 HP (W 240–260)</option>
+<option value="330" data-wlabel="320–340">Petra 0102 HP (W 320–340)</option>
+<option value="300" data-wlabel="da verificare">Petra 0101 HP (W da verificare sulla scheda)</option>
+<option value="270" data-wlabel="260–280">Petra 5063 / Special (W 260–280)</option>
+<option value="320" data-wlabel="300–340">Petra 5037 / Unica (W 300–340, verificare scheda)</option>
+<option value="330" data-wlabel="320–340">Petra 5072 (W 320–340)</option>
+<option value="300" data-wlabel="non dichiarato qui">Petra 5078 (W da verificare sulla scheda)</option>
+<option value="300" data-wlabel="non dichiarato qui">Petra 5020 (W da verificare sulla scheda)</option>
+<option value="250" data-wlabel="non dichiarato">Petra 3 (W non dichiarato)</option>
+<option value="300" data-wlabel="non dichiarato">Petra 3 HP (W da verificare sulla scheda)</option>
+</optgroup>
+<optgroup label="Generica">
+<option value="200" data-wlabel="variabile">Farina 00 generica (W variabile)</option>
+</optgroup>
+</select></div><div class="data-chips"><div class="data-chip"><small>FORZA W</small><strong id="flour-w-stat">260</strong></div><div class="data-chip"><small>IDRATAZIONE</small><strong id="flour-hydr-stat">65%</strong></div><div class="data-chip"><small>MATURAZIONE</small><strong id="flour-hours-stat">8 h</strong></div></div><div id="w-alert" class="alert">⚠️ La forza selezionata potrebbe essere poco adatta alla durata o all'idratazione impostata. Verifica la scheda tecnica: i valori W dei prodotti possono variare per versione e mercato.</div><div id="flour-advice" class="note"></div>
  <div class="flour-tips"><div class="tip-row"><span>💧</span><div><strong>Assorbenza</strong><small>Una farina più forte può tollerare più acqua, ma tecnica d'impasto e qualità della farina contano altrettanto.</small></div></div><div class="tip-row"><span>⏳</span><div><strong>Tempo di maturazione</strong><small>Più ore non significa automaticamente un impasto migliore: considera temperatura, lievito e tenuta dell'impasto.</small></div></div><div class="tip-row"><span>🧪</span><div><strong>Test pratico</strong><small>Annota estensibilità, tenuta e risultato in cottura nel diario per confrontare le prove.</small></div></div></div></div>
 </section>
 <section id="page-oven" class="page">
@@ -207,8 +248,8 @@ function calc(){
  const flourDeg=360*flour/total, waterDeg=360*water/total, saltDeg=360*(salt+yeast)/total;
  $('donut').style.background=`conic-gradient(var(--accent) 0deg ${flourDeg}deg,var(--blue) ${flourDeg}deg ${flourDeg+waterDeg}deg,var(--gold) ${flourDeg+waterDeg}deg 360deg)`;
  const warn=(hours>16&&W<270)||(h>.72&&W<280)||(h>.8&&W<320);$('w-alert').style.display=warn?'block':'none';
- const flourName=$('flour-select').selectedOptions[0]?.textContent||'Farina selezionata';$('flour-advice').textContent=`${flourName}. Riferimento interno W ${W}; per Petra 3 il produttore non dichiara un valore W significativo. Con ${hours} ore, ${Math.round(h*100)}% d'idratazione e ${temp}°C, usa il consiglio come orientamento e verifica la scheda tecnica.`;
- if($('selected-w-label'))$('selected-w-label').textContent='W '+W;if($('flour-w-stat'))$('flour-w-stat').textContent=W;if($('flour-hydr-stat'))$('flour-hydr-stat').textContent=Math.round(h*100)+'%';if($('flour-hours-stat'))$('flour-hours-stat').textContent=hours+' h';
+ const selectedOption=$('flour-select').selectedOptions[0];const flourName=selectedOption?.textContent||'Farina selezionata';const wLabel=selectedOption?.dataset.wlabel||'da verificare';$('flour-advice').textContent=`${flourName}. Valore W indicato: ${wLabel}. Il numero usato dal calcolatore è solo un riferimento tecnico interno per i suggerimenti, non sostituisce la scheda del produttore. Con ${hours} ore, ${Math.round(h*100)}% d'idratazione e ${temp}°C, usa il consiglio come orientamento e verifica la scheda tecnica.`;
+ if($('selected-w-label'))$('selected-w-label').textContent='W '+wLabel;if($('flour-w-stat'))$('flour-w-stat').textContent=wLabel;if($('flour-hydr-stat'))$('flour-hydr-stat').textContent=Math.round(h*100)+'%';if($('flour-hours-stat'))$('flour-hours-stat').textContent=hours+' h';
 }
 function updateTimeline(){
  const target=$('target-time').value;if(!target)return;const hours=+$('hours').value,ratio=+$('bulk').value;
@@ -266,5 +307,4 @@ document.querySelectorAll('.oven-check').forEach(c=>c.addEventListener('change',
 calc();updateTimeline();updateOven();renderRecipes();refreshRangeFills();paintTimer();updateChecklist();updateOvenChecklist();
 if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
-<script>if("serviceWorker" in navigator && location.protocol.startsWith("http")){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
 </body></html>
