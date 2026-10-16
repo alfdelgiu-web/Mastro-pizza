@@ -1,25 +1,13 @@
 {
-  "name": "Mastro Pizza — Studio Impasti",
+  "name": "Mastro Pizza Studio",
   "short_name": "Mastro Pizza",
-  "description": "Calcola impasti, pianifica la fermentazione e salva le tue ricette.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#080706",
+  "background_color": "#090706",
   "theme_color": "#100b08",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
   ]
 }
