@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="Mastro Pizza">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Mastro Pizza V13 — Studio impasti</title>
+<title>Mastro Pizza V14 — Studio impasti</title>
 <meta name="description" content="Calcola impasti, pianifica fermentazione, salva ricette e gestisci la cottura della pizza.">
 <style>
 :root{color-scheme:dark;--bg:#090909;--panel:#171717;--panel-hi:#202020;--accent:#ff6418;--accent2:#ff9a43;--gold:#f6c568;--blue:#35bce8;--text:#fffaf5;--muted:#aaa19a;--line:#3d2a20;--radius:20px}
@@ -71,6 +71,9 @@ input[type=range]::-moz-range-track{height:5px;border-radius:10px;background:#30
 .stepper-control .stepper-value{display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;width:100%!important;min-width:0!important;min-height:56px!important;margin:0!important;padding:0 2px!important;line-height:1.1!important;white-space:nowrap!important;font-variant-numeric:tabular-nums!important}
 .stepper-control input[type=range]{width:1px!important;height:1px!important;opacity:0!important;position:absolute!important;pointer-events:none!important;left:-9999px!important}
 @media(max-width:380px){.stepper-control{grid-template-columns:50px minmax(0,1fr) 50px!important;gap:8px!important}.stepper-control .stepper-btn{width:50px!important;min-width:50px!important;max-width:50px!important;height:52px!important;min-height:52px!important;max-height:52px!important}.stepper-control .stepper-value{min-height:52px!important;font-size:1.08rem!important}}
+
+
+.method-label{display:block;font-size:.82rem;margin:12px 0 7px;color:#f3e2d5}.method-select{width:100%;padding:13px;border:1px solid #68432e;border-radius:13px;background:#17110d;color:#fff;font:inherit}.method-settings{margin-top:12px}.method-settings label{display:flex;flex-direction:column;gap:6px;font-size:.74rem;color:#e2cfc0}.method-settings input{width:100%;min-width:0;padding:11px;border:1px solid #49372a;border-radius:11px;background:#100d0b;color:#fff;font:inherit}.method-output{margin-top:13px;padding:13px;border:1px solid #503523;border-radius:14px;background:linear-gradient(130deg,#24170f,#15110e);font-size:.8rem;line-height:1.5}.method-output strong{display:block;color:#ffb174;font-size:.9rem;margin-bottom:6px}.method-output p{margin:4px 0;color:#e6d7cb}.method-output ul{margin:8px 0 0;padding-left:18px;color:#f0e2d7}.method-output li{margin:5px 0}.method-output .method-note{color:#c7b2a2;font-size:.72rem;margin-top:9px}
 
 </style>
 
@@ -164,6 +167,14 @@ html{background:#080706}body{background:radial-gradient(ellipse at 50% -8%,#4c21
   <div class="group"><div class="label"><span>Temperatura ambiente</span></div><div class="stepper-control" role="group" aria-label="Modifica temperatura ambiente"><button type="button" class="stepper-btn" data-target="temp" data-dir="-1" aria-label="Diminuisci">−</button><span id="v-temp" class="stepper-value">22°C</span><input type="range" id="temp" min="16" max="30" step="1" value="22" tabindex="-1" aria-hidden="true"><button type="button" class="stepper-btn" data-target="temp" data-dir="1" aria-label="Aumenta">+</button></div></div>
  </div>
  <div class="card"><div class="card-title"><span class="title-icon">🌡️</span> Lievitazione: fasi di temperatura</div><p class="muted">Imposta separatamente le ore a temperatura ambiente e quelle in frigorifero o cella. La durata totale aggiorna automaticamente la stima del lievito e il cronoprogramma.</p><div class="tray-fields"><label>Ore a temperatura ambiente<input id="room-hours" type="number" min="0" max="72" step="0.5" value="4" inputmode="decimal"></label><label>Ore a temperatura controllata<input id="cold-hours" type="number" min="0" max="72" step="0.5" value="4" inputmode="decimal"></label></div><div class="tray-fields" style="margin-top:10px"><label>Temperatura controllata (°C)<input id="cold-temp" type="number" min="2" max="18" step="1" value="4" inputmode="decimal"></label><label>Ordine delle fasi<select id="phase-order"><option value="cold-first">Prima temperatura controllata</option><option value="room-first" selected>Prima temperatura ambiente</option></select></label></div><div class="tray-result"><span>Durata totale pianificata</span><strong id="phase-total">8 ore</strong><small id="phase-summary">4 h ambiente + 4 h a 4°C</small></div></div>
+ <div class="card" id="method-card"><div class="card-title"><span class="title-icon">🧑‍🍳</span> Metodo di preparazione</div>
+  <p class="muted">Scegli l'impasto diretto, la biga, l'autolisi oppure combina biga e autolisi. Le dosi totali restano quelle del calcolatore; qui trovi come dividerle nelle fasi.</p>
+  <label class="method-label" for="dough-method">Tecnica</label><select id="dough-method" class="method-select"><option value="direct">Impasto diretto</option><option value="biga">Biga</option><option value="autolysis">Autolisi</option><option value="both">Biga + autolisi</option></select>
+  <div id="biga-settings" class="tray-fields method-settings" hidden><label>Farina nella biga (%)<input id="biga-flour-pct" type="number" min="20" max="100" step="5" value="45"></label><label>Idratazione biga (%)<input id="biga-hydr-pct" type="number" min="40" max="60" step="1" value="45"></label><label>Ore di maturazione biga<input id="biga-hours" type="number" min="8" max="24" step="1" value="16"></label><label>Temperatura biga (°C)<input id="biga-temp" type="number" min="16" max="24" step="1" value="18"></label></div>
+  <div id="autolysis-settings" class="tray-fields method-settings" hidden><label>Farina in autolisi (%)<input id="autolysis-flour-pct" type="number" min="30" max="100" step="5" value="50"></label><label>Acqua sulla farina in autolisi (%)<input id="autolysis-water-pct" type="number" min="40" max="100" step="5" value="50"></label><label>Riposo autolisi (minuti)<input id="autolysis-minutes" type="number" min="20" max="120" step="10" value="45"></label></div>
+  <div id="method-output" class="method-output" aria-live="polite"><strong>Impasto diretto</strong><p>Unisci gli ingredienti secondo la ricetta calcolata.</p></div>
+  <p class="muted">Indicazioni orientative: la biga tradizionale è spesso rigida (circa 45% d'idratazione) e matura in condizioni controllate. Per l'autolisi mescola solo farina e acqua dedicate; aggiungi poi lievito, sale e ingredienti rimanenti. Adatta sempre a farina, temperatura e risultato desiderato.</p>
+ </div>
  <div class="card"><div class="card-title"><span class="title-icon">▥</span> Proporzioni e ingredienti</div><div class="ingredient-overview"><div class="chartrow"><div class="donut" id="donut"><div class="donut-inner"><strong id="total">1000 g</strong><span>IMPASTO TOTALE</span></div></div></div><div class="chart-legend"><div><i class="legend-flour"></i><span>Farina</span><b id="legend-flour">—</b></div><div><i class="legend-water"></i><span>Acqua</span><b id="legend-water">—</b></div><div><i class="legend-salt"></i><span>Sale</span><b id="legend-salt">—</b></div></div></div>
   <div class="grid"><div class="ing"><small>🌾 Farina</small><strong id="flour-g">595 g</strong></div><div class="ing"><small>💧 Acqua</small><strong id="water-g">387 g</strong></div><div class="ing"><small>🧪 Lievito fresco*</small><strong id="yeast-g">—</strong></div><div class="ing"><small>🧂 Sale</small><strong id="salt-g">16,7 g</strong></div></div>
   <p class="muted" style="margin-top:12px">*Il lievito è una stima orientativa, non una formula universale: controlla maturazione, temperatura reale, farina e tempi.</p>
@@ -270,7 +281,44 @@ function calc(){
  const warn=(hours>16&&W<270)||(h>.72&&W<280)||(h>.8&&W<320);$('w-alert').style.display=warn?'block':'none';
  const selectedOption=$('flour-select').selectedOptions[0];const flourName=selectedOption?.textContent||'Farina selezionata';const wLabel=selectedOption?.dataset.wlabel||'da verificare';$('flour-advice').textContent=`${flourName}. Valore W indicato: ${wLabel}. Il numero usato dal calcolatore è solo un riferimento tecnico interno per i suggerimenti, non sostituisce la scheda del produttore. Con ${hours} ore, ${Math.round(h*100)}% d'idratazione e ${temp}°C, usa il consiglio come orientamento e verifica la scheda tecnica.`;
  if($('selected-w-label'))$('selected-w-label').textContent='W '+wLabel;if($('flour-w-stat'))$('flour-w-stat').textContent=wLabel;if($('flour-hydr-stat'))$('flour-hydr-stat').textContent=Math.round(h*100)+'%';if($('flour-hours-stat'))$('flour-hours-stat').textContent=hours+' h';
+ updateMethodBreakdown();
 }
+function updateMethodBreakdown(){
+ const method=$('dough-method')?.value||'direct';
+ const bigaBox=$('biga-settings'), autoBox=$('autolysis-settings'), out=$('method-output');
+ if(!bigaBox||!autoBox||!out)return;
+ bigaBox.hidden=!(method==='biga'||method==='both'); autoBox.hidden=!(method==='autolysis'||method==='both');
+ const flour=parseFloat(($('flour-g').textContent||'0').replace(/[^0-9,.-]/g,'').replace(/\./g,'').replace(',','.'))||0;
+ const water=parseFloat(($('water-g').textContent||'0').replace(/[^0-9,.-]/g,'').replace(/\./g,'').replace(',','.'))||0;
+ const salt=parseFloat(($('salt-g').textContent||'0').replace(/[^0-9,.-]/g,'').replace(/\./g,'').replace(',','.'))||0;
+ const yeast=parseFloat(($('yeast-g').textContent||'0').replace(/[^0-9,.-]/g,'').replace(/\./g,'').replace(',','.'))||0;
+ const fmtg=n=>fmt(Math.max(0,n),1)+' g';
+ let html='';
+ if(method==='direct'){
+  html='<strong>Impasto diretto</strong><p>Usa tutte le dosi mostrate nel riepilogo ingredienti e impasta in un’unica fase.</p>';
+ } else if(method==='biga'){
+  const pct=Math.max(20,Math.min(100,Number($('biga-flour-pct').value)||45))/100;
+  const bh=Math.max(40,Math.min(60,Number($('biga-hydr-pct').value)||45))/100;
+  const bf=flour*pct,bw=bf*bh,by=yeast*.7;
+  html=`<strong>Fase 1 · Biga</strong><ul><li>Farina: ${fmtg(bf)}</li><li>Acqua: ${fmtg(bw)} (${Math.round(bh*100)}% sulla farina della biga)</li><li>Lievito fresco: circa ${fmtg(by)} della dose totale stimata</li><li>Maturazione impostata: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Impasto finale</strong><ul><li>Farina da aggiungere: ${fmtg(flour-bf)}</li><li>Acqua da aggiungere: ${fmtg(water-bw)}</li><li>Sale: ${fmtg(salt)}</li><li>Lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">La ripartizione del lievito è un punto di partenza, non una regola universale: la dose reale dipende da maturazione, temperatura e attività del lievito.</p>`;
+ } else if(method==='autolysis'){
+  const fp=Math.max(30,Math.min(100,Number($('autolysis-flour-pct').value)||50))/100;
+  const wp=Math.max(40,Math.min(100,Number($('autolysis-water-pct').value)||50))/100;
+  const af=flour*fp, aw=Math.min(water,af*wp);
+  html=`<strong>Fase 1 · Autolisi</strong><ul><li>Farina: ${fmtg(af)}</li><li>Acqua: ${fmtg(aw)}</li><li>Riposo: ${$('autolysis-minutes').value} minuti</li></ul><strong>Fase 2 · Impasto finale</strong><ul><li>Farina rimanente: ${fmtg(flour-af)}</li><li>Acqua rimanente: ${fmtg(water-aw)}</li><li>Lievito totale stimato: ${fmtg(yeast)}</li><li>Sale: ${fmtg(salt)}</li></ul><p class="method-note">Durante l'autolisi mescola solo farina e acqua dedicate. Aggiungi lievito e sale dopo il riposo.</p>`;
+ } else {
+  const pct=Math.max(20,Math.min(100,Number($('biga-flour-pct').value)||45))/100;
+  const bh=Math.max(40,Math.min(60,Number($('biga-hydr-pct').value)||45))/100;
+  const bf=flour*pct,bw=bf*bh,by=yeast*.7;
+  const af=Math.max(0,flour-bf)*Math.max(30,Math.min(100,Number($('autolysis-flour-pct').value)||50))/100;
+  const aw=Math.min(Math.max(0,water-bw),af*Math.max(40,Math.min(100,Number($('autolysis-water-pct').value)||50))/100);
+  html=`<strong>Fase 1 · Biga</strong><ul><li>Farina: ${fmtg(bf)} · acqua: ${fmtg(bw)} · lievito fresco: circa ${fmtg(by)}</li><li>Maturazione: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Autolisi della farina rimanente</strong><ul><li>Farina: ${fmtg(af)} · acqua: ${fmtg(aw)}</li><li>Riposo: ${$('autolysis-minutes').value} minuti</li></ul><strong>Fase 3 · Impasto finale</strong><ul><li>Farina ancora da aggiungere: ${fmtg(flour-bf-af)}</li><li>Acqua ancora da aggiungere: ${fmtg(water-bw-aw)}</li><li>Sale: ${fmtg(salt)} · lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">Sequenza suggerita: prepara la biga in anticipo; al momento dell'impasto prepara l'autolisi con una parte della farina residua e dell'acqua, poi unisci biga, ingredienti restanti e sale.</p>`;
+ }
+ out.innerHTML=html;
+}
+$('dough-method').addEventListener('change',updateMethodBreakdown);
+['biga-flour-pct','biga-hydr-pct','biga-hours','biga-temp','autolysis-flour-pct','autolysis-water-pct','autolysis-minutes'].forEach(id=>$(id).addEventListener('input',updateMethodBreakdown));
+
 function syncPhases(){
  const room=Math.max(0,Math.min(72,Number($('room-hours').value)||0));
  const cold=Math.max(0,Math.min(72,Number($('cold-hours').value)||0));
