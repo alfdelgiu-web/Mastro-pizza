@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#100b08">
-<meta name="app-version" content="13">
+<meta name="app-version" content="15">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mastro Pizza">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Mastro Pizza V14 — Studio impasti</title>
+<title>Mastro Pizza V15 — Studio impasti</title>
 <meta name="description" content="Calcola impasti, pianifica fermentazione, salva ricette e gestisci la cottura della pizza.">
 <style>
 :root{color-scheme:dark;--bg:#090909;--panel:#171717;--panel-hi:#202020;--accent:#ff6418;--accent2:#ff9a43;--gold:#f6c568;--blue:#35bce8;--text:#fffaf5;--muted:#aaa19a;--line:#3d2a20;--radius:20px}
@@ -139,6 +139,18 @@ html{background:#080706}body{background:radial-gradient(ellipse at 50% -8%,#4c21
 .timeline-item{padding-top:12px;padding-bottom:15px}.time-badge{min-width:54px}.recipe{align-items:center}.recipe small{font-size:.7rem}.delete{min-height:38px}
 @media(max-width:380px){.page{padding-left:10px;padding-right:10px}.pizza-hero{height:153px}.hero-copy h2{font-size:1.35rem}.hero-copy{top:17px;left:14px}.style-btn{font-size:.66rem;min-height:42px}.preset-btn{font-size:.58rem;padding:8px 3px}.ingredient-overview{grid-template-columns:103px 1fr;gap:7px}.donut{width:98px;height:98px}.donut-inner{width:69px;height:69px}.result-actions button{font-size:.65rem}.craft-stats strong{font-size:.86rem}}
 @media(min-width:600px){.app-header{padding-top:14px}.page{padding-top:12px}.pizza-hero{height:190px}}
+</style>
+
+
+<style id="v15-compact-layout">
+/* V15: layout più compatto senza ridurre la leggibilità o i pulsanti +/− */
+.app-header{padding:10px 12px 6px}.brand-mark h1{font-size:clamp(1.8rem,7vw,2.25rem)}.brand-pizza{font-size:1.7rem}.app-header p{margin-top:3px;font-size:.54rem;letter-spacing:1.2px}
+.page{padding:5px 10px 12px}.pizza-hero{height:128px;margin-bottom:9px;border-radius:18px}.hero-copy{left:13px;top:14px}.hero-copy h2{font-size:1.35rem;margin:6px 0}.hero-copy p{font-size:.7rem;margin:5px 0}.hero-pizza{font-size:2.4rem;right:8px}.pizza-hero:before{width:160px;height:160px;right:-20px;top:-16px}
+.card{padding:11px 12px;margin-bottom:8px;border-radius:17px}.card-title{font-size:.91rem;margin-bottom:8px;padding-bottom:7px;gap:7px}.title-icon{width:26px;height:26px;border-radius:8px;font-size:1rem}
+.group{margin:9px 0}.label{font-size:.77rem;margin-bottom:5px}input[type=time],input[type=text],input[type=number],select{min-height:40px;padding:9px 10px;border-radius:10px}.style-grid{gap:6px;margin-bottom:10px}.style-btn{min-height:38px;padding:7px 3px}.quick-presets{margin-bottom:9px;padding:7px}.group input[type=range]{height:20px}.tray-fields{gap:8px}.tray-result{padding:9px;margin-top:8px}.note,.alert{padding:9px;margin-top:8px;font-size:.76rem;line-height:1.4}.ingredient-overview{margin:0 0 9px;gap:9px}.donut{width:108px;height:108px}.donut-inner{width:74px;height:74px}.chart-legend{gap:7px}.ing{padding:10px;min-height:70px}.ing strong{margin-top:4px;font-size:1.1rem}.grid{gap:7px}.nav{padding-top:5px;padding-bottom:calc(4px + env(safe-area-inset-bottom))}.nav button{gap:2px;padding:3px 0}.nav .ico{height:22px;font-size:1.2rem}
+/* Conserviamo controlli grandi e uguali, ma riduciamo gli spazi laterali */
+.stepper-control{gap:7px!important;margin:5px 0 2px!important}.stepper-control .stepper-btn{border-radius:12px!important}
+@media(max-width:380px){.page{padding-left:8px;padding-right:8px}.card{padding:10px}.pizza-hero{height:118px}.hero-copy h2{font-size:1.25rem}.ingredient-overview{grid-template-columns:100px 1fr;gap:7px}.donut{width:96px;height:96px}.donut-inner{width:66px;height:66px}.stepper-control{grid-template-columns:48px minmax(0,1fr) 48px!important;gap:6px!important}.stepper-control .stepper-btn{width:48px!important;min-width:48px!important;max-width:48px!important;height:50px!important;min-height:50px!important;max-height:50px!important}.stepper-control .stepper-value{min-height:50px!important;font-size:1.05rem!important}}
 </style>
 
 </head>
@@ -409,6 +421,32 @@ function updateChecklist(){const checks=[...document.querySelectorAll('.prep-che
 document.querySelectorAll('.prep-check').forEach(c=>c.addEventListener('change',updateChecklist));
 function updateOvenChecklist(){const checks=[...document.querySelectorAll('.oven-check')],done=checks.filter(c=>c.checked).length;if($('oven-check-progress'))$('oven-check-progress').textContent=done+' di '+checks.length}
 document.querySelectorAll('.oven-check').forEach(c=>c.addEventListener('change',updateOvenChecklist));
+// V15: ripristina e salva automaticamente l'ultima configurazione sul dispositivo.
+const LAST_RECIPE_KEY='mastroPizzaLastRecipeV15';
+function getLastRecipeState(){
+ const controls=[...document.querySelectorAll('input[id],select[id],textarea[id]')].filter(el=>!['recipe-search'].includes(el.id));
+ const values={};controls.forEach(el=>{values[el.id]=el.type==='checkbox'||el.type==='radio'?el.checked:el.value});
+ return {values,currentStyle,calcMode,activePreset:document.querySelector('.preset-btn.selected')?.dataset.preset||null};
+}
+function saveLastRecipeState(){try{localStorage.setItem(LAST_RECIPE_KEY,JSON.stringify(getLastRecipeState()))}catch(e){}}
+function restoreLastRecipeState(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(LAST_RECIPE_KEY)||'null');if(!saved)return;
+  Object.entries(saved.values||{}).forEach(([id,value])=>{const el=$(id);if(!el)return;if(el.type==='checkbox'||el.type==='radio')el.checked=!!value;else if(value!==undefined)el.value=value;});
+  if(saved.currentStyle&&styles[saved.currentStyle])currentStyle=saved.currentStyle;
+  if(saved.calcMode==='teglia'||saved.calcMode==='panetti')calcMode=saved.calcMode;
+  document.querySelectorAll('.style-btn').forEach(b=>b.classList.toggle('active',b.dataset.style===currentStyle));
+  document.querySelectorAll('.calc-mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===calcMode));
+  if($('tray-calculator'))$('tray-calculator').hidden=calcMode!=='teglia';
+  if($('balls'))$('balls').closest('.group').style.display=calcMode==='panetti'?'':'none';
+  if($('weight'))$('weight').closest('.group').style.display=calcMode==='panetti'?'':'none';
+  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.toggle('selected',b.dataset.preset===saved.activePreset));
+ }catch(e){}
+}
+restoreLastRecipeState();
+// Salva a ogni modifica, cambio di tecnica o scelta di un preset; resta sul dispositivo/browser.
+document.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{if(el.id==='recipe-search')return;el.addEventListener('input',saveLastRecipeState);el.addEventListener('change',saveLastRecipeState)});
+document.querySelectorAll('.style-btn,.calc-mode-btn,[data-preset]').forEach(el=>el.addEventListener('click',()=>setTimeout(saveLastRecipeState,0)));
 calc();syncPhases();updateOven();renderRecipes();refreshRangeFills();paintTimer();updateChecklist();updateOvenChecklist();
 if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
