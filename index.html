@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="Mastro Pizza">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Mastro Pizza V15 — Studio impasti</title>
+<title>Mastro Pizza V16 — Menù pizze</title>
 <meta name="description" content="Calcola impasti, pianifica fermentazione, salva ricette e gestisci la cottura della pizza.">
 <style>
 :root{color-scheme:dark;--bg:#090909;--panel:#171717;--panel-hi:#202020;--accent:#ff6418;--accent2:#ff9a43;--gold:#f6c568;--blue:#35bce8;--text:#fffaf5;--muted:#aaa19a;--line:#3d2a20;--radius:20px}
@@ -74,6 +74,11 @@ input[type=range]::-moz-range-track{height:5px;border-radius:10px;background:#30
 
 
 .method-label{display:block;font-size:.82rem;margin:12px 0 7px;color:#f3e2d5}.method-select{width:100%;padding:13px;border:1px solid #68432e;border-radius:13px;background:#17110d;color:#fff;font:inherit}.method-settings{margin-top:12px}.method-settings label{display:flex;flex-direction:column;gap:6px;font-size:.74rem;color:#e2cfc0}.method-settings input{width:100%;min-width:0;padding:11px;border:1px solid #49372a;border-radius:11px;background:#100d0b;color:#fff;font:inherit}.method-output{margin-top:13px;padding:13px;border:1px solid #503523;border-radius:14px;background:linear-gradient(130deg,#24170f,#15110e);font-size:.8rem;line-height:1.5}.method-output strong{display:block;color:#ffb174;font-size:.9rem;margin-bottom:6px}.method-output p{margin:4px 0;color:#e6d7cb}.method-output ul{margin:8px 0 0;padding-left:18px;color:#f0e2d7}.method-output li{margin:5px 0}.method-output .method-note{color:#c7b2a2;font-size:.72rem;margin-top:9px}
+
+
+/* V16 — pagina Menù pizze */
+.menu-recipe-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}.menu-recipe-art{width:58px;height:58px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(140deg,#482514,#24150e);font-size:2rem;flex-shrink:0}.menu-total{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}.menu-total>div{background:#21150f;border:1px solid #50301f;border-radius:12px;padding:10px}.menu-total small{display:block;color:#c4a18a;font-size:.65rem}.menu-total strong{display:block;color:#ffad72;font-size:1.1rem;margin-top:3px}.menu-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}.menu-line{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;border:1px solid #3e2a1e;background:#17110d;border-radius:11px}.menu-line span{font-size:.84rem}.menu-line strong{white-space:nowrap;color:#ffd0a7;font-size:.9rem}.menu-subtitle{font-size:.78rem;color:#cbb4a2;margin:12px 0 6px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}.menu-qty-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.menu-qty-row .group{margin:0}.menu-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.menu-actions button{flex:1;min-width:120px}.menu-note{font-size:.73rem;color:#b9a79a;line-height:1.45;margin-top:9px}
+@media(max-width:390px){.nav button{font-size:.55rem}.nav .ico{font-size:1.08rem}.menu-total strong{font-size:1rem}}
 
 </style>
 
@@ -198,6 +203,18 @@ html{background:#080706}body{background:radial-gradient(ellipse at 50% -8%,#4c21
   <div class="check-head"><strong>Checklist impasto</strong><span id="check-progress">0 di 4</span></div><div class="checklist"><label><input type="checkbox" class="prep-check"> Ingredienti pesati</label><label><input type="checkbox" class="prep-check"> Impasto chiuso</label><label><input type="checkbox" class="prep-check"> Pieghe completate</label><label><input type="checkbox" class="prep-check"> Panetti formati</label></div><div class="progress-track"><span id="check-bar"></span></div>
  </div>
 </section>
+<section id="page-menu" class="page">
+ <div class="module-intro"><div class="module-art">🍕</div><div><strong>Menù pizze</strong><p>Scegli una pizza, imposta quante prepararne e ottieni dosi dell'impasto, condimenti e lista della spesa.</p></div></div>
+ <div class="card"><div class="card-title"><span class="title-icon">🍽️</span> Scegli la pizza</div>
+  <div class="group"><div class="label"><span>Ricetta</span></div><select id="menu-pizza"><option value="margherita">Margherita</option><option value="marinara">Marinara</option><option value="diavola">Diavola</option><option value="prosciutto">Prosciutto e funghi</option><option value="quattro">Quattro formaggi</option><option value="capricciosa">Capricciosa</option><option value="ortolana">Ortolana</option><option value="bufalina">Bufalina</option></select></div>
+  <div class="menu-qty-row"><div class="group"><div class="label"><span>Numero pizze</span></div><input id="menu-count" type="number" min="1" max="50" value="4" inputmode="numeric"></div><div class="group"><div class="label"><span>Peso panetto (g)</span></div><input id="menu-weight" type="number" min="150" max="500" step="10" value="250" inputmode="numeric"></div></div>
+  <div class="menu-qty-row"><div class="group"><div class="label"><span>Idratazione impasto</span></div><input id="menu-hydr" type="number" min="50" max="90" value="65" inputmode="numeric"></div><div class="group"><div class="label"><span>Lievitazione (ore)</span></div><input id="menu-hours" type="number" min="2" max="72" value="8" inputmode="numeric"></div></div>
+  <div class="menu-recipe-head" style="margin-top:12px"><div class="menu-recipe-art" id="menu-pizza-emoji">🍅</div><div><strong id="menu-pizza-name">Pizza Margherita</strong><p class="muted" id="menu-pizza-desc">La classica con pomodoro, mozzarella e basilico.</p></div></div>
+ </div>
+ <div class="card"><div class="card-title"><span class="title-icon">🌾</span> Dosi impasto</div><div class="menu-total"><div><small>IMPASTO TOTALE</small><strong id="menu-dough-total">1.000 g</strong></div><div><small>FARINA</small><strong id="menu-flour">—</strong></div><div><small>ACQUA</small><strong id="menu-water">—</strong></div><div><small>SALE / LIEVITO FRESCO</small><strong id="menu-salt-yeast">—</strong></div></div><p class="menu-note">Il lievito è una stima di partenza: regolalo in base a temperatura, farina, maturazione e metodo scelto.</p></div>
+ <div class="card"><div class="card-title"><span class="title-icon">🧀</span> Condimenti e quantità</div><p class="muted">Dosi indicative per pizza tonda da circa 30–32 cm. Puoi modificare le quantità a tuo gusto.</p><div id="menu-toppings" class="menu-list"></div><div class="menu-actions"><button class="secondary-action" id="menu-copy">⧉ Copia lista della spesa</button><button class="primary-action" id="menu-to-calculator">Apri calcolatore ↗</button></div><p id="menu-feedback" class="action-feedback" aria-live="polite"></p></div>
+</section>
+
 <section id="page-time" class="page"><div class="card"><div class="card-title"><span class="title-icon">◷</span> Cronoprogramma impasto</div><div class="group"><div class="label"><span>Ora infornata</span></div><input type="time" id="target-time" value="20:00"></div><div class="group" style="margin-top:16px"><div class="label"><span>Riposo in massa prima dello staglio</span></div><select id="bulk"><option value=".25">25% del tempo (staglio anticipato)</option><option value=".5" selected>50% del tempo</option><option value=".65">65% del tempo (massa più lunga)</option></select></div><div id="timeline-list"></div><p class="note">Il cronoprogramma è una traccia, non una previsione biologica esatta. La velocità di fermentazione cambia con temperatura reale, dose di lievito, farina e impasto. Il passaggio in frigo rallenta la fermentazione ma non la arresta completamente; controlla sempre volume e consistenza.</p></div></section>
 <section id="page-flour" class="page">
  <div class="module-intro"><div class="module-art">🌾</div><div><strong>La biblioteca delle farine</strong><p>Scegli la forza in base a idratazione e durata. I valori W sono indicativi: verifica sempre la scheda del produttore.</p></div></div>
@@ -253,6 +270,7 @@ html{background:#080706}body{background:radial-gradient(ellipse at 50% -8%,#4c21
 </main>
 <nav class="nav" aria-label="Navigazione principale">
 <button class="active" data-page="calc"><span class="ico">◈</span><span>Calcola</span></button>
+<button data-page="menu"><span class="ico">🍕</span><span>Menù</span></button>
 <button data-page="time"><span class="ico">◷</span><span>Timeline</span></button>
 <button data-page="flour"><span class="ico">❋</span><span>Farine</span></button>
 <button data-page="oven"><span class="ico">♨</span><span>Cottura</span></button>
@@ -421,8 +439,38 @@ function updateChecklist(){const checks=[...document.querySelectorAll('.prep-che
 document.querySelectorAll('.prep-check').forEach(c=>c.addEventListener('change',updateChecklist));
 function updateOvenChecklist(){const checks=[...document.querySelectorAll('.oven-check')],done=checks.filter(c=>c.checked).length;if($('oven-check-progress'))$('oven-check-progress').textContent=done+' di '+checks.length}
 document.querySelectorAll('.oven-check').forEach(c=>c.addEventListener('change',updateOvenChecklist));
+
+// V16: menù pizze con dosi impasto e condimenti scalabili.
+const menuRecipes={
+ margherita:{name:'Pizza Margherita',emoji:'🍅',desc:'La classica con pomodoro, mozzarella e basilico.',items:[['Passata o pelati schiacciati',80],['Mozzarella fiordilatte ben scolata',90],['Basilico fresco',2],['Olio extravergine d’oliva',5]]},
+ marinara:{name:'Pizza Marinara',emoji:'🧄',desc:'Pomodoro, aglio, origano e olio: senza formaggio.',items:[['Passata o pelati schiacciati',90],['Aglio',3],['Origano secco',1],['Olio extravergine d’oliva',7]]},
+ diavola:{name:'Pizza Diavola',emoji:'🌶️',desc:'Pomodoro, mozzarella e salame piccante.',items:[['Passata o pelati schiacciati',80],['Mozzarella fiordilatte ben scolata',85],['Salame piccante',45],['Olio extravergine d’oliva',4],['Peperoncino (facoltativo)',1]]},
+ prosciutto:{name:'Prosciutto e funghi',emoji:'🍄',desc:'Pomodoro, mozzarella, prosciutto cotto e funghi.',items:[['Passata o pelati schiacciati',75],['Mozzarella fiordilatte ben scolata',85],['Prosciutto cotto',40],['Funghi champignon scolati',45],['Olio extravergine d’oliva',4]]},
+ quattro:{name:'Quattro formaggi',emoji:'🧀',desc:'Mix cremoso di formaggi; niente pomodoro nella versione bianca.',items:[['Mozzarella fiordilatte ben scolata',70],['Gorgonzola',25],['Fontina o provola',25],['Parmigiano grattugiato',12],['Olio extravergine d’oliva',3]]},
+ capricciosa:{name:'Pizza Capricciosa',emoji:'🫒',desc:'Pomodoro, mozzarella, prosciutto, funghi, carciofi e olive.',items:[['Passata o pelati schiacciati',75],['Mozzarella fiordilatte ben scolata',80],['Prosciutto cotto',30],['Funghi scolati',30],['Carciofini scolati',25],['Olive denocciolate',15],['Olio extravergine d’oliva',4]]},
+ ortolana:{name:'Pizza Ortolana',emoji:'🥒',desc:'Verdure di stagione, mozzarella e pomodoro.',items:[['Passata o pelati schiacciati',70],['Mozzarella fiordilatte ben scolata',75],['Zucchine grigliate',30],['Peperoni grigliati',25],['Melanzane grigliate',30],['Olio extravergine d’oliva',6]]},
+ bufalina:{name:'Pizza Bufalina',emoji:'🐃',desc:'Pomodoro, mozzarella di bufala e basilico.',items:[['Passata o pelati schiacciati',75],['Mozzarella di bufala ben scolata',90],['Basilico fresco',2],['Olio extravergine d’oliva',5]]}
+};
+function menuFormat(n){return Math.round(n).toLocaleString('it-IT')+' g'}
+function updateMenu(){
+ const key=$('menu-pizza').value,recipe=menuRecipes[key]||menuRecipes.margherita;
+ const count=Math.max(1,Math.min(50,Math.round(Number($('menu-count').value)||1)));
+ const weight=Math.max(150,Math.min(500,Number($('menu-weight').value)||250));
+ const hydration=Math.max(50,Math.min(90,Number($('menu-hydr').value)||65))/100;
+ const hours=Math.max(2,Math.min(72,Number($('menu-hours').value)||8));
+ const total=count*weight, flour=total/(1+hydration+.028), water=flour*hydration, salt=flour*.028, yeast=Math.max(.2,flour*(12/(hours*1000)));
+ $('menu-pizza-name').textContent=recipe.name;$('menu-pizza-emoji').textContent=recipe.emoji;$('menu-pizza-desc').textContent=recipe.desc;
+ $('menu-dough-total').textContent=menuFormat(total);$('menu-flour').textContent=menuFormat(flour);$('menu-water').textContent=menuFormat(water);$('menu-salt-yeast').textContent=menuFormat(salt)+' / '+fmt(yeast,1)+' g';
+ $('menu-toppings').innerHTML=recipe.items.map(([name,qty])=>`<div class="menu-line"><span>${name}</span><strong>${menuFormat(qty*count)}</strong></div>`).join('');
+}
+['menu-pizza','menu-count','menu-weight','menu-hydr','menu-hours'].forEach(id=>$(id).addEventListener('input',updateMenu));
+$('menu-pizza').addEventListener('change',updateMenu);
+$('menu-copy').addEventListener('click',async()=>{const recipe=menuRecipes[$('menu-pizza').value],count=Math.max(1,Math.min(50,Math.round(Number($('menu-count').value)||1))),lines=[recipe.name+' — '+count+' pizze','IMPASTO: '+$('menu-dough-total').textContent,'Farina: '+$('menu-flour').textContent,'Acqua: '+$('menu-water').textContent,'Sale / lievito fresco: '+$('menu-salt-yeast').textContent,'CONDIMENTI:',...recipe.items.map(([name,qty])=>name+': '+menuFormat(qty*count))];const out=$('menu-feedback');try{await navigator.clipboard.writeText(lines.join('\n'));out.textContent='Lista della spesa copiata ✓'}catch{out.textContent=lines.join(' · ')} });
+$('menu-to-calculator').addEventListener('click',()=>{const n=Math.max(1,Math.min(25,Math.round(Number($('menu-count').value)||1)));$('balls').value=n;$('weight').value=Math.max(150,Math.min(650,Number($('menu-weight').value)||250));$('hydr').value=Math.max(50,Math.min(90,Number($('menu-hydr').value)||65));$('hours').value=Math.max(2,Math.min(72,Number($('menu-hours').value)||8));$('room-hours').value=$('hours').value;$('cold-hours').value=0;calc();syncPhases();showPage('calc')});
+updateMenu();
+
 // V15: ripristina e salva automaticamente l'ultima configurazione sul dispositivo.
-const LAST_RECIPE_KEY='mastroPizzaLastRecipeV15';
+const LAST_RECIPE_KEY='mastroPizzaLastRecipeV16';
 function getLastRecipeState(){
  const controls=[...document.querySelectorAll('input[id],select[id],textarea[id]')].filter(el=>!['recipe-search'].includes(el.id));
  const values={};controls.forEach(el=>{values[el.id]=el.type==='checkbox'||el.type==='radio'?el.checked:el.value});
