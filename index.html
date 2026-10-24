@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f6f0e5">
-<meta name="app-version" content="20">
+<meta name="theme-color" content="#f7f2e8">
+<meta name="app-version" content="21">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mastro Pizza">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Mastro Pizza V20 — Italian Premium</title>
+<title>Mastro Pizza V22 — Verde & Crema</title>
 <meta name="description" content="Calcola impasti, pianifica fermentazione, salva ricette e gestisci la cottura della pizza.">
 <style>
 :root{color-scheme:dark;--bg:#090909;--panel:#171717;--panel-hi:#202020;--accent:#ff6418;--accent2:#ff9a43;--gold:#f6c568;--blue:#35bce8;--text:#fffaf5;--muted:#aaa19a;--line:#3d2a20;--radius:20px}
@@ -88,6 +88,31 @@ input[type=range]::-moz-range-track{height:5px;border-radius:10px;background:#30
 .custom-add-box{border:1px solid #4a3325;border-radius:14px;padding:11px;background:#17110d;margin:12px 0}.custom-add-box .group{margin:8px 0}.custom-add-box .label{display:block;color:#e8d6c8;font-size:.76rem;margin-bottom:6px}.custom-add-box .secondary-action{width:100%;min-height:42px;border-radius:11px;padding:10px;font-weight:800}.custom-ingredient-category{margin-bottom:8px}
 
 .menu-multi-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}.menu-multi-item{display:grid;grid-template-columns:minmax(0,1fr) 90px;gap:10px;align-items:center;padding:11px;border:1px solid #493326;border-radius:12px;background:#17110d}.menu-multi-item label{display:flex;align-items:center;gap:9px;min-width:0;font-size:.82rem;color:#f1e3d8}.menu-multi-item input[type=checkbox]{width:20px;height:20px;accent-color:#ff6b2c;flex-shrink:0}.menu-multi-item .multi-count{width:100%;min-width:0;padding:9px 5px;text-align:center}.menu-multi-item .multi-count:disabled{opacity:.4}.menu-multi-item .multi-emoji{font-size:1.2rem}.menu-multi-item small{display:block;color:#bba696;font-size:.67rem;margin-top:3px}.menu-shopping-group{margin-top:12px}.menu-shopping-group .menu-subtitle{margin-top:0}.menu-shopping-group .menu-line{background:#17110d}
+
+
+/* V21 — palette unica verde bosco, crema e terracotta */
+:root{color-scheme:light;--bg:#f7f2e8;--panel:#fffdf8;--panel-hi:#f1eadc;--accent:#176447;--accent2:#2d805d;--gold:#c58a3a;--blue:#6caaa0;--text:#26372f;--muted:#748078;--line:#dfd5c4;--radius:21px}
+html,body{background:#f7f2e8!important;color:#26372f!important}
+body{background:linear-gradient(180deg,#f4ecdd 0,#fbf8f1 280px,#f7f2e8 100%)!important}
+.app-header{background:linear-gradient(180deg,#e8dfce,#f4ecdd 78%,transparent)!important}
+.brand-mark h1{color:#174d39!important;text-shadow:none!important}.brand-pizza{filter:none!important}.app-header p{color:#6d776d!important}
+.pizza-hero{background:linear-gradient(110deg,#153e30,#1c6549 52%,#b97b42)!important;border-color:#c6a77d!important;box-shadow:0 12px 28px #36533b20!important}
+.pizza-hero:before{box-shadow:0 0 25px #1b241622!important}.hero-shade{background:linear-gradient(90deg,#143b2deF 0%,#143b2dc9 42%,#143b2d25 100%)!important}.eyebrow,.hero-copy h2 em{color:#f3d39a!important}.hero-copy p{color:#f7f0e3!important}
+.card,.recipe,.ing,.quick-presets,.craft-card,.data-chip,.tip-row,.oven-temp,.tray-calculator,.method-output,.empty-state,.timer-panel,.module-intro{background:#fffdf8!important;color:#26372f!important;border-color:#e3d8c6!important;box-shadow:0 5px 18px #4e422512!important}
+.card-title{border-bottom-color:#e8dfd1!important;color:#243b30!important}.title-icon{background:#e5efe6!important;color:#176447!important}
+.style-btn,.preset-btn,.calc-mode,.calc-mode-btn,.stepper-btn,.secondary-action,.delete,.method-select,.method-settings input,.tray-fields input,.tray-fields select,input[type=time],input[type=text],input[type=number],select{background:#f5f0e6!important;color:#26372f!important;border-color:#d8cbb7!important}
+.style-btn.active,.calc-mode-btn.active,.preset-btn.selected,.btn-main,.primary-action{background:linear-gradient(135deg,#207653,#124d37)!important;color:#fff!important;border-color:#176447!important;box-shadow:0 5px 14px #17644720!important}
+.btn-main,.primary-action{border:1px solid #176447!important}.secondary-action{background:#edf3eb!important;color:#176447!important;border-color:#cdddcf!important}
+.label,.method-label,.method-settings label{color:#46574b!important}.value,.time-badge,.craft-stats strong,.data-chip strong,.oven-temp strong,.tray-result strong,.method-output strong{color:#176447!important}
+input:focus,select:focus{border-color:#398563!important;box-shadow:0 0 0 3px #1764471a!important}
+input[type=range]{accent-color:#176447!important}input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(90deg,#176447 0%,#64a67c var(--range-pct,30%),#e2d9ca var(--range-pct,30%),#e2d9ca 100%)!important;border-color:#e6ddcf!important}input[type=range]::-moz-range-progress{background:#176447!important}
+.ing:before{background:#176447!important}.ing small,.muted,.recipe small,.time-desc,.module-intro p,.flour-tips small,.oven-temp small,.tray-result small,.method-output p,.method-output ul{color:#68766c!important}.ing strong,.recipe strong{color:#26372f!important}
+.donut-inner{background:#fffdf8!important;color:#748078!important;border-color:#e3d8c6!important}.donut-inner strong,.chart-legend b{color:#26372f!important}.chart-legend div{color:#68766c!important}.legend-water{background:#6caaa0!important}.legend-salt{background:#c58a3a!important}
+.note{background:#f4ead7!important;border-color:#dec49a!important;color:#70542e!important}.alert{background:#fff0df!important;border-color:#d7a65e!important;color:#704a20!important}
+.timeline-item{border-left-color:#7da88a!important}.timeline-item:before{background:#176447!important;box-shadow:0 0 0 4px #17644718!important}
+.nav{background:rgba(255,253,248,.96)!important;border-top-color:#e1d7c8!important;box-shadow:0 -5px 22px #4e422512!important}.nav button{color:#7a857c!important}.nav .ico{color:#7a857c!important}.nav button.active,.nav button.active .ico{color:#176447!important;text-shadow:none!important;filter:none!important}
+.pill,.recipe-meta span,.live-pill{background:#edf3eb!important;border-color:#d1e0d2!important;color:#176447!important}.craft-stats>div,.tray-result{background:#f5f0e6!important;border-color:#e3d8c6!important}.craft-stats small,.data-chip small,.tray-result span{color:#748078!important}.module-art{background:linear-gradient(145deg,#dcebdc,#8bb69a)!important;box-shadow:none!important}.oven-stage{background:#e6ddcf!important}.oven-stage span{background:linear-gradient(90deg,#176447,#78aa80)!important}.oven-checks label{background:#f5f0e6!important;border-color:#e3d8c6!important;color:#405247!important}.delete{background:#f8e9e2!important;color:#9a4a34!important;border-color:#e7c9bd!important}
+button{transition:background .15s,border-color .15s,transform .15s}
 
 </style>
 
@@ -180,6 +205,19 @@ input[type=time],input[type=text],input[type=number],select,textarea{background:
 /* componenti con colori inline: ammorbidisci i pannelli senza cambiare la logica */
 .menu-total,.menu-summary,.shopping-list,.result-panel{border-color:#e5d8c5}.page h2,.page h3{color:inherit}
 @media(prefers-reduced-motion:no-preference){.card,.recipe,.ing,.btn-main{transition:box-shadow .18s ease,transform .18s ease}.card:active,.recipe:active{transform:scale(.997)}}
+</style>
+
+
+<style id="mastro-checklist-unified-v22">
+/* Checklist uniformi in tutta l'app: crema + verde bosco */
+.checklist,.oven-checks{display:grid;grid-template-columns:1fr;gap:9px;margin-top:12px}
+.checklist label,.oven-checks label{display:flex!important;align-items:center;gap:11px;min-height:48px;padding:12px 14px!important;border:1px solid #d8e2d5!important;border-radius:14px!important;background:#fffdf8!important;color:#30483a!important;font-size:.8rem!important;line-height:1.35;box-shadow:0 3px 10px #254b3210;transition:background .15s,border-color .15s}
+.checklist input[type=checkbox],.oven-checks input[type=checkbox]{appearance:auto!important;accent-color:#176447!important;width:19px!important;height:19px!important;flex:0 0 19px;margin:0!important}
+.checklist label:has(input:checked),.oven-checks label:has(input:checked){background:#eaf3e9!important;border-color:#77a889!important;color:#176447!important}
+.check-head{color:#26372f!important}.check-head span{color:#176447!important;font-weight:800}
+.progress-track{height:8px!important;background:#e6ddcf!important;border-radius:20px!important;overflow:hidden;margin-top:12px}
+.progress-track span{background:linear-gradient(90deg,#176447,#79aa80)!important;border-radius:20px;transition:width .2s}
+@media(min-width:420px){.oven-checks{grid-template-columns:1fr 1fr}}
 </style>
 
 </head>
@@ -475,6 +513,12 @@ function updateChecklist(){const checks=[...document.querySelectorAll('.prep-che
 document.querySelectorAll('.prep-check').forEach(c=>c.addEventListener('change',updateChecklist));
 function updateOvenChecklist(){const checks=[...document.querySelectorAll('.oven-check')],done=checks.filter(c=>c.checked).length;if($('oven-check-progress'))$('oven-check-progress').textContent=done+' di '+checks.length}
 document.querySelectorAll('.oven-check').forEach(c=>c.addEventListener('change',updateOvenChecklist));
+// V22: stato delle checklist mantenuto sul dispositivo e aggiornato in modo coerente.
+const CHECKLIST_STORAGE_KEY='mastroPizzaChecklistsV22';
+function saveChecklistState(){try{const state={prep:[...document.querySelectorAll('.prep-check')].map(c=>c.checked),oven:[...document.querySelectorAll('.oven-check')].map(c=>c.checked)};localStorage.setItem(CHECKLIST_STORAGE_KEY,JSON.stringify(state))}catch(e){}}
+function restoreChecklistState(){try{const state=JSON.parse(localStorage.getItem(CHECKLIST_STORAGE_KEY)||'{}');document.querySelectorAll('.prep-check').forEach((c,i)=>c.checked=!!(state.prep&&state.prep[i]));document.querySelectorAll('.oven-check').forEach((c,i)=>c.checked=!!(state.oven&&state.oven[i]))}catch(e){}updateChecklist();updateOvenChecklist()}
+document.querySelectorAll('.prep-check,.oven-check').forEach(c=>c.addEventListener('change',saveChecklistState));
+restoreChecklistState();
 
 // V16: menù pizze con dosi impasto e condimenti scalabili.
 const menuRecipes={
