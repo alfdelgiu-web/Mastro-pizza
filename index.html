@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#100b08">
-<meta name="app-version" content="19">
+<meta name="theme-color" content="#f6f0e5">
+<meta name="app-version" content="20">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mastro Pizza">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Mastro Pizza V19 — Menù pizze multiple</title>
+<title>Mastro Pizza V20 — Italian Premium</title>
 <meta name="description" content="Calcola impasti, pianifica fermentazione, salva ricette e gestisci la cottura della pizza.">
 <style>
 :root{color-scheme:dark;--bg:#090909;--panel:#171717;--panel-hi:#202020;--accent:#ff6418;--accent2:#ff9a43;--gold:#f6c568;--blue:#35bce8;--text:#fffaf5;--muted:#aaa19a;--line:#3d2a20;--radius:20px}
@@ -165,6 +165,21 @@ html{background:#080706}body{background:radial-gradient(ellipse at 50% -8%,#4c21
 /* Conserviamo controlli grandi e uguali, ma riduciamo gli spazi laterali */
 .stepper-control{gap:7px!important;margin:5px 0 2px!important}.stepper-control .stepper-btn{border-radius:12px!important}
 @media(max-width:380px){.page{padding-left:8px;padding-right:8px}.card{padding:10px}.pizza-hero{height:118px}.hero-copy h2{font-size:1.25rem}.ingredient-overview{grid-template-columns:100px 1fr;gap:7px}.donut{width:96px;height:96px}.donut-inner{width:66px;height:66px}.stepper-control{grid-template-columns:48px minmax(0,1fr) 48px!important;gap:6px!important}.stepper-control .stepper-btn{width:48px!important;min-width:48px!important;max-width:48px!important;height:50px!important;min-height:50px!important;max-height:50px!important}.stepper-control .stepper-value{min-height:50px!important;font-size:1.05rem!important}}
+</style>
+
+
+<style id="mastro-v20-italian-premium">
+:root{color-scheme:light;--bg:#f6f0e5;--panel:#fffdf8;--panel-hi:#f5ead9;--accent:#075c43;--accent2:#e9a23b;--gold:#dca13a;--blue:#58b7c4;--text:#20231e;--muted:#77766d;--line:#e6d9c5;--radius:22px}
+html{background:#f6f0e5}body{background:linear-gradient(180deg,#f5ebda 0,#fbf8f1 290px,#f6f0e5 100%);color:#20231e;letter-spacing:-.012em}
+.app-header{padding:20px 15px 15px;background:linear-gradient(180deg,#fffaf0,#f5ead7);border-bottom:1px solid #e8dac3}.brand-mark h1{color:#075c43;text-shadow:none;font-family:Georgia,serif;font-size:clamp(2rem,8vw,2.55rem)}.brand-pizza{filter:none}.app-header p{color:#77766d;letter-spacing:1.35px}
+.page{padding-top:12px}.pizza-hero{border:0;border-radius:25px;background:linear-gradient(110deg,#063f30 0%,#087052 48%,#e3a44a 100%);box-shadow:0 12px 28px #59432924}.pizza-hero:before{width:230px;height:230px;right:-15px;top:-22px;background:radial-gradient(circle at 49% 45%,#f5d995 0 4%,#237b43 5% 9%,#b93420 10% 17%,#f0c66f 18% 24%,#d84b26 25% 33%,#f7d995 34% 40%,#b9321c 41% 53%,#f0c66f 54% 60%,#a12a17 61% 67%,#e9b85c 68% 71%,#145c3c 72%);box-shadow:0 0 30px #082e22aa}.hero-shade{background:linear-gradient(90deg,#063e30f5 0%,#064431d9 39%,#06443155 68%,transparent 100%)}.eyebrow{color:#ffcf7d}.hero-copy h2{color:#fff}.hero-copy h2 em{color:#ffcf7d}.hero-copy p{color:#e4f0e7}.hero-pizza{filter:drop-shadow(0 4px 8px #153b2a55)}
+.card{background:linear-gradient(145deg,#fffefa,#fbf6ec);border:1px solid #e9ddca;box-shadow:0 5px 18px #59432912,inset 0 1px #fff;border-radius:22px;color:#252720}.card-title{color:#203c30;border-bottom-color:#e9dfd0}.title-icon{color:#075c43;background:#e1eee5}.style-btn{background:linear-gradient(180deg,#fffdf8,#f1eadf);border-color:#e4d9c9;color:#50534b}.style-btn.active{background:linear-gradient(135deg,#087553,#064b37);color:#fff;border-color:#087553;box-shadow:0 5px 14px #075c4326}
+input[type=time],input[type=text],input[type=number],select,textarea{background:#fffefa;color:#242720;border-color:#ded4c4}input:focus,select:focus,textarea:focus{border-color:#0b7755;box-shadow:0 0 0 3px #0b77551b}select option{background:#fffefa;color:#242720}.label{color:#4c5047}.value{color:#087553}.ing{background:linear-gradient(145deg,#fffefa,#f4ecdf);border-color:#e5d8c5;box-shadow:inset 0 1px #fff}.ing:before{background:#0b7655}.ing small{color:#77766d}.ing strong{color:#20231e}.donut-inner{background:#fffaf1;border-color:#e7ddce;color:#77766d}.donut-inner strong{color:#20231e}.chart-legend div{color:#62645b}.chart-legend b{color:#20231e}
+.note{background:linear-gradient(120deg,#edf5e9,#f8f0df);border-color:#d4e3d0;color:#38543d}.alert{background:#fff0d5;border-color:#e8bc6b;color:#6b4816}.timeline-item{border-left-color:#0c7855}.timeline-item:before{background:#0c7855;box-shadow:0 0 0 4px #0c78551c}.time-badge{color:#087553}.time-desc{color:#4c5047}.btn-main{background:linear-gradient(135deg,#087553,#064a36);border-color:#087553;box-shadow:0 6px 16px #075c4324}.recipe{background:linear-gradient(145deg,#fffefa,#f5ecdf);border-color:#e6d8c4}.recipe strong{color:#20231e}.recipe small{color:#77766d}.recipe-meta span{color:#4e5f50;border-color:#d7e4d5;background:#eef5eb}.delete{background:#fff1e9;color:#a13b22;border-color:#f0d1c3}.muted{color:#77766d}.pill{border-color:#ded4c4;color:#77766d}.empty-state{color:#77766d;border-color:#d8cbb7;background:#fbf7ef}
+.nav{background:rgba(255,253,247,.96);border-top:1px solid #e7dbc9;box-shadow:0 -5px 22px #59432912;backdrop-filter:blur(20px)}.nav button{color:#77766d}.nav .ico{color:#77766d}.nav button.active{color:#075c43}.nav button.active .ico{color:#075c43;text-shadow:none}.nav button:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #0b7755;outline-offset:3px}
+/* componenti con colori inline: ammorbidisci i pannelli senza cambiare la logica */
+.menu-total,.menu-summary,.shopping-list,.result-panel{border-color:#e5d8c5}.page h2,.page h3{color:inherit}
+@media(prefers-reduced-motion:no-preference){.card,.recipe,.ing,.btn-main{transition:box-shadow .18s ease,transform .18s ease}.card:active,.recipe:active{transform:scale(.997)}}
 </style>
 
 </head>
