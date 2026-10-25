@@ -228,21 +228,74 @@ input[type=time],input[type=text],input[type=number],select,textarea{background:
 @media(max-width:380px){.pizza-hero{background-position:58% center!important}.hero-copy h2{font-size:1.31rem!important}}
 </style>
 
-<style id="mastro-menu-dark-parts-only-fix">
-/* Correzione mirata: solo le parti scure della selezione pizze e della lista spesa. Sfondo generale e banner invariati. */
-#page-menu .menu-multi-item{background:#fffaf1!important;color:#244b37!important;border:1px solid #e6c9a9!important;border-radius:16px!important;box-shadow:0 3px 10px rgba(81,57,31,.06)!important;padding:12px!important}
-#page-menu .menu-multi-item label{color:#244b37!important}
-#page-menu .menu-multi-item label span{color:#244b37!important}
-#page-menu .menu-multi-item small{color:#6b7168!important}
-#page-menu .menu-multi-item input[type=checkbox]{accent-color:#244b37!important}
-#page-menu .menu-multi-item .multi-count{background:#fffdf8!important;color:#244b37!important;border:1px solid #d8cbb8!important;border-radius:12px!important;opacity:1!important}
-#page-menu .menu-multi-item .multi-count:disabled{background:#eee7dc!important;color:#85857b!important;opacity:1!important}
-#page-menu .menu-multi-item:has(input[type=checkbox]:checked){background:#fff8ee!important;border:1.5px solid #c96843!important;box-shadow:0 3px 12px rgba(184,95,67,.10)!important}
-#page-menu .menu-multi-item input:focus{border-color:#b85f43!important;box-shadow:0 0 0 3px rgba(184,95,67,.12)!important}
-#page-menu .menu-shopping-group .menu-line{background:#fffdf8!important;border:1px solid #d8cbb8!important;color:#29342b!important}
-#page-menu .menu-shopping-group .menu-line span{color:#29342b!important}
-#page-menu .menu-shopping-group .menu-line strong{color:#b85f43!important}
+<style id="mastro-v25-menu-only-colors">
+/* V25: correzione SOLO dei componenti scuri nella pagina Menù. Sfondo e altre pagine invariati. */
+#page-menu .menu-multi-item,
+#page-menu .menu-shopping-group .menu-line,
+#page-menu .menu-list .menu-line,
+#page-menu .custom-ingredient {
+  background: var(--panel, #fffdf8) !important;
+  color: var(--text, #244d3d) !important;
+  border-color: #e8cdb0 !important;
+}
+#page-menu .menu-multi-item label,
+#page-menu .menu-multi-item label > span,
+#page-menu .custom-ingredient label,
+#page-menu .menu-line,
+#page-menu .menu-line span,
+#page-menu .custom-ingredient,
+#page-menu .custom-ingredient input,
+#page-menu .custom-ingredient select {
+  color: var(--text, #244d3d) !important;
+}
+#page-menu .menu-multi-item small,
+#page-menu .custom-ingredient small,
+#page-menu .menu-line small,
+#page-menu .menu-total small {
+  color: #6f786d !important;
+}
+#page-menu .menu-multi-item input[type="checkbox"] {
+  accent-color: #285b45 !important;
+}
+#page-menu .menu-multi-item .multi-count,
+#page-menu .custom-ingredient input,
+#page-menu .custom-ingredient select,
+#page-menu .menu-qty-row input,
+#page-menu input[type="number"] {
+  background: #fffdf8 !important;
+  color: #244d3d !important;
+  border-color: #d9cdb9 !important;
+  -webkit-text-fill-color: #244d3d !important;
+  opacity: 1;
+}
+#page-menu .menu-multi-item .multi-count:disabled {
+  background: #f1eadf !important;
+  color: #77796f !important;
+  -webkit-text-fill-color: #77796f !important;
+  opacity: 1 !important;
+}
+#page-menu .menu-total > div,
+#page-menu .menu-summary,
+#page-menu .shopping-list,
+#page-menu .menu-total {
+  background: #f5eee2 !important;
+  color: #244d3d !important;
+  border-color: #e8cdb0 !important;
+}
+#page-menu .menu-total strong {
+  color: #285b45 !important;
+}
+#page-menu .menu-list .menu-line,
+#page-menu .menu-shopping-group .menu-line {
+  background: #fffdf8 !important;
+}
+#page-menu button:not(.nav button),
+#page-menu .btn-main,
+#page-menu .menu-action {
+  border-color: #c65d3a;
+}
 </style>
+
 </head>
 <body>
 <header class="app-header"><div class="brand-mark"><span class="brand-pizza">🍕</span><h1>Mastro Pizza</h1></div><p>DOUGH LAB · CALCOLA · PIANIFICA · INFORNA</p><div class="header-badges"><span>🔥 Artigianale</span><span>•</span><span>🍅 Fatto per la pizza</span></div></header>
