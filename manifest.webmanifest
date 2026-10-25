@@ -1,6 +1,6 @@
 {
   "id": "./",
-  "name": "Mastro Pizza V14",
+  "name": "Mastro Pizza V25",
   "short_name": "Mastro Pizza",
   "description": "Calcola impasti, pianifica fermentazione, salva ricette e gestisci la cottura della pizza.",
   "lang": "it-IT",
@@ -8,8 +8,8 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#090706",
-  "theme_color": "#f6f0e5",
+  "background_color": "#f7f2e8",
+  "theme_color": "#f7f2e8",
   "icons": [
     {
       "src": "./icon-192.png",
