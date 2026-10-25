@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f7f2e8">
-<meta name="app-version" content="21">
+<meta name="app-version" content="25">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mastro Pizza">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Mastro Pizza V22 — Verde & Crema</title>
+<title>Mastro Pizza V25 — Verde & Crema</title>
 <meta name="description" content="Calcola impasti, pianifica fermentazione, salva ricette e gestisci la cottura della pizza.">
 <style>
 :root{color-scheme:dark;--bg:#090909;--panel:#171717;--panel-hi:#202020;--accent:#ff6418;--accent2:#ff9a43;--gold:#f6c568;--blue:#35bce8;--text:#fffaf5;--muted:#aaa19a;--line:#3d2a20;--radius:20px}
@@ -113,6 +113,47 @@ input[type=range]{accent-color:#176447!important}input[type=range]::-webkit-slid
 .nav{background:rgba(255,253,248,.96)!important;border-top-color:#e1d7c8!important;box-shadow:0 -5px 22px #4e422512!important}.nav button{color:#7a857c!important}.nav .ico{color:#7a857c!important}.nav button.active,.nav button.active .ico{color:#176447!important;text-shadow:none!important;filter:none!important}
 .pill,.recipe-meta span,.live-pill{background:#edf3eb!important;border-color:#d1e0d2!important;color:#176447!important}.craft-stats>div,.tray-result{background:#f5f0e6!important;border-color:#e3d8c6!important}.craft-stats small,.data-chip small,.tray-result span{color:#748078!important}.module-art{background:linear-gradient(145deg,#dcebdc,#8bb69a)!important;box-shadow:none!important}.oven-stage{background:#e6ddcf!important}.oven-stage span{background:linear-gradient(90deg,#176447,#78aa80)!important}.oven-checks label{background:#f5f0e6!important;border-color:#e3d8c6!important;color:#405247!important}.delete{background:#f8e9e2!important;color:#9a4a34!important;border-color:#e7c9bd!important}
 button{transition:background .15s,border-color .15s,transform .15s}
+
+
+
+/* V25 — rifinitura responsive hero e palette coerente della pagina Menù */
+.pizza-hero{height:190px;min-height:190px;}
+.hero-copy{left:12px;right:34%;top:50%;transform:translateY(-50%);width:auto;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;}
+.hero-copy .eyebrow{font-size:clamp(.48rem,2.1vw,.58rem);letter-spacing:clamp(.5px,.35vw,1.3px);line-height:1.25;max-width:100%;}
+.hero-copy h2{font-size:clamp(1.15rem,5.3vw,1.58rem);line-height:1.08;letter-spacing:-.45px;margin:6px 0;max-width:100%;overflow-wrap:anywhere;}
+.hero-copy p{font-size:clamp(.66rem,2.8vw,.76rem);line-height:1.25;margin:4px 0;}
+.hero-copy .hero-chip{font-size:clamp(.48rem,2vw,.58rem);letter-spacing:.35px;line-height:1.2;white-space:normal;text-align:center;max-width:100%;margin-top:3px;}
+.hero-pizza{right:7px;bottom:50%;transform:translateY(50%);font-size:clamp(2.25rem,12vw,3rem);}
+@media(max-width:390px){.pizza-hero{height:184px;min-height:184px}.hero-copy{left:8px;right:31%;}.hero-copy h2{font-size:clamp(1.08rem,5vw,1.28rem);}.hero-copy .eyebrow{letter-spacing:.45px}.hero-pizza{right:4px}}
+
+/* Palette crema + verde bosco + terracotta applicata a tutti i componenti del Menù */
+#page-menu{--menu-cream:#f7f2e8;--menu-cream-deep:#eee4d3;--menu-forest:#244b37;--menu-forest-dark:#193b2a;--menu-terracotta:#b85f43;--menu-ink:#29342b;--menu-muted:#6b7168;--menu-line:#d8cbb8;color:var(--menu-ink);}
+#page-menu .module-intro,#page-menu .card{background:var(--menu-cream);color:var(--menu-ink);border:1px solid var(--menu-line);box-shadow:0 5px 16px #47351b12;}
+#page-menu .module-intro p,#page-menu .muted,#page-menu .menu-note,#page-menu .label{color:var(--menu-muted);}
+#page-menu .module-art,#page-menu .menu-recipe-art{background:var(--menu-forest);color:var(--menu-cream);}
+#page-menu .card-title{color:var(--menu-forest);border-bottom-color:var(--menu-line);}
+#page-menu .title-icon{background:var(--menu-forest);color:var(--menu-cream);}
+#page-menu .menu-subtitle{color:var(--menu-terracotta);}
+#page-menu input:not([type=checkbox]):not([type=radio]),#page-menu select,#page-menu textarea{background:#fffdf8!important;color:var(--menu-ink)!important;border:1px solid #cbbba5!important;border-radius:11px;}
+#page-menu input::placeholder,#page-menu textarea::placeholder{color:#8b8d83!important;opacity:1;}
+#page-menu select option{background:#fffdf8;color:var(--menu-ink);}
+#page-menu button,#page-menu .btn-main,#page-menu .primary-action{background:var(--menu-forest);color:#fffdf6;border:1px solid var(--menu-forest);}
+#page-menu button:active,#page-menu .btn-main:active,#page-menu .primary-action:active{background:var(--menu-forest-dark);}
+#page-menu .secondary-action{background:var(--menu-cream-deep);color:var(--menu-forest);border:1px solid #b7c5b7;}
+#page-menu .custom-add-box{background:#f1e8d9;border:1px solid var(--menu-line);border-radius:14px;padding:12px;}
+#page-menu .custom-ingredient{background:#fffdf8;border:1px solid var(--menu-line);color:var(--menu-ink);}
+#page-menu .custom-ingredient label,#page-menu .custom-ingredient span,#page-menu .custom-ingredient strong{color:var(--menu-ink);}
+#page-menu .menu-total>div{background:#e7eee5;border:1px solid #c4d1c2;border-radius:12px;}
+#page-menu .menu-total small{color:#526957;}
+#page-menu .menu-total strong{color:var(--menu-forest);}
+#page-menu .menu-line{background:#fffdf8;border:1px solid var(--menu-line);color:var(--menu-ink);}
+#page-menu .menu-line span{color:var(--menu-ink);}
+#page-menu .menu-line strong{color:var(--menu-terracotta);}
+#page-menu .menu-list,#page-menu .menu-multi-list{color:var(--menu-ink);}
+#page-menu .action-feedback{color:var(--menu-forest);}
+#page-menu input[type=checkbox],#page-menu input[type=radio]{accent-color:var(--menu-forest);}
+#page-menu .active,#page-menu [aria-pressed=true]{outline-color:var(--menu-terracotta);}
+@media(max-width:390px){#page-menu .custom-ingredient-grid{grid-template-columns:1fr 1fr;gap:6px}#page-menu .card{padding:12px}}
 
 </style>
 
@@ -227,6 +268,55 @@ input[type=time],input[type=text],input[type=number],select,textarea{background:
 .pizza-hero:after{display:none!important}.hero-shade{background:transparent!important;z-index:0}.hero-copy{z-index:2!important}.hero-pizza{display:none!important}
 @media(max-width:380px){.pizza-hero{background-position:58% center!important}.hero-copy h2{font-size:1.31rem!important}}
 </style>
+
+<style id="v25-hero-alignment-fix">
+/* V25 fix: testo centrato nel riquadro sinistro, pizza conservata a destra. */
+.pizza-hero{height:196px!important;min-height:196px!important;position:relative!important;overflow:hidden!important}
+.pizza-hero .hero-copy{
+  position:absolute!important;left:9px!important;right:35%!important;top:50%!important;
+  bottom:auto!important;transform:translateY(-50%)!important;width:auto!important;
+  max-width:none!important;max-height:calc(100% - 16px)!important;overflow:visible!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;text-align:center!important;gap:0!important;
+  padding:0 2px!important;z-index:3!important;
+}
+.pizza-hero .hero-copy .eyebrow{
+  display:block!important;width:100%!important;text-align:center!important;
+  font-size:clamp(7px,2.15vw,9px)!important;line-height:1.2!important;
+  letter-spacing:.35px!important;white-space:normal!important;overflow-wrap:anywhere!important;
+  margin:0 0 4px!important;
+}
+.pizza-hero .hero-copy h2{
+  display:block!important;width:100%!important;max-width:100%!important;text-align:center!important;
+  font-size:clamp(15px,4.7vw,21px)!important;line-height:1.08!important;
+  letter-spacing:-.35px!important;margin:3px 0 5px!important;overflow-wrap:normal!important;
+}
+.pizza-hero .hero-copy p{
+  display:block!important;width:100%!important;text-align:center!important;
+  font-size:clamp(10px,2.8vw,12px)!important;line-height:1.25!important;
+  margin:2px 0 4px!important;white-space:normal!important;
+}
+.pizza-hero .hero-copy .hero-chip{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  align-self:center!important;max-width:100%!important;white-space:normal!important;
+  text-align:center!important;overflow-wrap:anywhere!important;line-height:1.2!important;
+  font-size:clamp(7px,1.95vw,8px)!important;letter-spacing:.15px!important;
+  padding:4px 5px!important;margin:2px auto 0!important;box-sizing:border-box!important;
+}
+.pizza-hero:before{z-index:0!important}
+.pizza-hero:after{z-index:1!important}
+.pizza-hero .hero-shade{z-index:1!important}
+@media(max-width:360px){
+ .pizza-hero{height:202px!important;min-height:202px!important}
+ .pizza-hero .hero-copy{left:7px!important;right:36%!important;padding:0 1px!important}
+ .pizza-hero .hero-copy .eyebrow{font-size:7px!important;letter-spacing:.1px!important}
+ .pizza-hero .hero-copy h2{font-size:15px!important}
+ .pizza-hero .hero-copy p{font-size:10px!important}
+ .pizza-hero .hero-copy .hero-chip{font-size:7px!important;padding:3px 4px!important}
+}
+@media(min-width:600px){.pizza-hero{height:210px!important;min-height:210px!important}.pizza-hero .hero-copy{left:18px!important;right:36%!important}}
+</style>
+
 </head>
 <body>
 <header class="app-header"><div class="brand-mark"><span class="brand-pizza">🍕</span><h1>Mastro Pizza</h1></div><p>DOUGH LAB · CALCOLA · PIANIFICA · INFORNA</p><div class="header-badges"><span>🔥 Artigianale</span><span>•</span><span>🍅 Fatto per la pizza</span></div></header>
