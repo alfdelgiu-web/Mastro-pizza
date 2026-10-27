@@ -757,32 +757,36 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigat
 
 
 
-<style id="v31-timeline-time-position">
-/* V31: centra il contenitore del campo ora, non soltanto il testo interno. */
+<style id="v32-timeline-time-width-fix">
+/* V32: il campo ora resta dentro la scheda anche con Safari su iPhone. */
+#page-time .card,
+#page-time .group:has(#target-time) {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
 #page-time .group:has(#target-time) {
   display: block !important;
   width: 100% !important;
-  max-width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  box-sizing: border-box !important;
-  position: relative !important;
-  left: 0 !important;
-  transform: none !important;
+  margin: 14px 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
 }
 #page-time #target-time {
   display: block !important;
   float: none !important;
-  position: relative !important;
-  left: 0 !important;
-  right: auto !important;
-  transform: none !important;
+  position: static !important;
   width: 100% !important;
+  min-width: 0 !important;
   max-width: 100% !important;
+  inline-size: 100% !important;
+  min-inline-size: 0 !important;
+  max-inline-size: 100% !important;
   margin: 0 !important;
+  padding: 12px !important;
   box-sizing: border-box !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
   text-align: center !important;
   text-align-last: center !important;
 }
