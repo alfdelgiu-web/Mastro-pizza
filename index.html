@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f7f2e8">
-<meta name="app-version" content="21">
+<meta name="app-version" content="35">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mastro Pizza">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Mastro Pizza V22 — Verde & Crema</title>
+<title>Mastro Pizza V35 — Preparazione farine</title>
 <meta name="description" content="Calcola impasti, pianifica fermentazione, salva ricette e gestisci la cottura della pizza.">
 <style>
 :root{color-scheme:dark;--bg:#090909;--panel:#171717;--panel-hi:#202020;--accent:#ff6418;--accent2:#ff9a43;--gold:#f6c568;--blue:#35bce8;--text:#fffaf5;--muted:#aaa19a;--line:#3d2a20;--radius:20px}
@@ -440,26 +440,27 @@ function updateMethodBreakdown(){
  const salt=parseFloat(($('salt-g').textContent||'0').replace(/[^0-9,.-]/g,'').replace(/\./g,'').replace(',','.'))||0;
  const yeast=parseFloat(($('yeast-g').textContent||'0').replace(/[^0-9,.-]/g,'').replace(/\./g,'').replace(',','.'))||0;
  const fmtg=n=>fmt(Math.max(0,n),1)+' g';
+ const flourLines=(amount)=>getFlourBlend().map(f=>`<li>${f.name}: ${fmtg(amount*f.pct/100)} (${f.pct}%)</li>`).join('');
  let html='';
  if(method==='direct'){
-  html='<strong>Impasto diretto</strong><p>Usa tutte le dosi mostrate nel riepilogo ingredienti e impasta in un’unica fase.</p>';
+  html='<strong>Impasto diretto</strong><p>Usa tutte le dosi mostrate nel riepilogo ingredienti e impasta in un’unica fase.</p><strong>Farine da pesare</strong><ul>'+flourLines(flour)+'</ul>';
  } else if(method==='biga'){
   const pct=Math.max(20,Math.min(100,Number($('biga-flour-pct').value)||45))/100;
   const bh=Math.max(40,Math.min(60,Number($('biga-hydr-pct').value)||45))/100;
   const bf=flour*pct,bw=bf*bh,by=yeast*.7;
-  html=`<strong>Fase 1 · Biga</strong><ul><li>Farina: ${fmtg(bf)}</li><li>Acqua: ${fmtg(bw)} (${Math.round(bh*100)}% sulla farina della biga)</li><li>Lievito fresco: circa ${fmtg(by)} della dose totale stimata</li><li>Maturazione impostata: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Impasto finale</strong><ul><li>Farina da aggiungere: ${fmtg(flour-bf)}</li><li>Acqua da aggiungere: ${fmtg(water-bw)}</li><li>Sale: ${fmtg(salt)}</li><li>Lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">La ripartizione del lievito è un punto di partenza, non una regola universale: la dose reale dipende da maturazione, temperatura e attività del lievito.</p>`;
+  html=`<strong>Fase 1 · Biga</strong><ul>${flourLines(bf)}<li>Acqua: ${fmtg(bw)} (${Math.round(bh*100)}% sulla farina della biga)</li><li>Lievito selezionato: circa ${fmtg(by)} della dose totale stimata</li><li>Maturazione impostata: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Impasto finale</strong><ul>${flourLines(flour-bf)}<li>Acqua da aggiungere: ${fmtg(water-bw)}</li><li>Sale: ${fmtg(salt)}</li><li>Lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">Le quantità di ogni farina sono ripartite automaticamente in base alle percentuali della miscela scelta.</p>`;
  } else if(method==='autolysis'){
   const fp=Math.max(30,Math.min(100,Number($('autolysis-flour-pct').value)||50))/100;
   const wp=Math.max(40,Math.min(100,Number($('autolysis-water-pct').value)||50))/100;
   const af=flour*fp, aw=Math.min(water,af*wp);
-  html=`<strong>Fase 1 · Autolisi</strong><ul><li>Farina: ${fmtg(af)}</li><li>Acqua: ${fmtg(aw)}</li><li>Riposo: ${$('autolysis-minutes').value} minuti</li></ul><strong>Fase 2 · Impasto finale</strong><ul><li>Farina rimanente: ${fmtg(flour-af)}</li><li>Acqua rimanente: ${fmtg(water-aw)}</li><li>Lievito totale stimato: ${fmtg(yeast)}</li><li>Sale: ${fmtg(salt)}</li></ul><p class="method-note">Durante l'autolisi mescola solo farina e acqua dedicate. Aggiungi lievito e sale dopo il riposo.</p>`;
+  html=`<strong>Fase 1 · Autolisi</strong><ul>${flourLines(af)}<li>Acqua: ${fmtg(aw)}</li><li>Riposo: ${$('autolysis-minutes').value} minuti</li></ul><strong>Fase 2 · Impasto finale</strong><ul>${flourLines(flour-af)}<li>Acqua rimanente: ${fmtg(water-aw)}</li><li>Lievito selezionato: ${fmtg(yeast)}</li><li>Sale: ${fmtg(salt)}</li></ul><p class="method-note">Durante l'autolisi mescola solo le farine e l'acqua dedicate. Aggiungi lievito e sale dopo il riposo.</p>`;
  } else {
   const pct=Math.max(20,Math.min(100,Number($('biga-flour-pct').value)||45))/100;
   const bh=Math.max(40,Math.min(60,Number($('biga-hydr-pct').value)||45))/100;
   const bf=flour*pct,bw=bf*bh,by=yeast*.7;
   const af=Math.max(0,flour-bf)*Math.max(30,Math.min(100,Number($('autolysis-flour-pct').value)||50))/100;
   const aw=Math.min(Math.max(0,water-bw),af*Math.max(40,Math.min(100,Number($('autolysis-water-pct').value)||50))/100);
-  html=`<strong>Fase 1 · Biga</strong><ul><li>Farina: ${fmtg(bf)} · acqua: ${fmtg(bw)} · lievito fresco: circa ${fmtg(by)}</li><li>Maturazione: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Autolisi della farina rimanente</strong><ul><li>Farina: ${fmtg(af)} · acqua: ${fmtg(aw)}</li><li>Riposo: ${$('autolysis-minutes').value} minuti</li></ul><strong>Fase 3 · Impasto finale</strong><ul><li>Farina ancora da aggiungere: ${fmtg(flour-bf-af)}</li><li>Acqua ancora da aggiungere: ${fmtg(water-bw-aw)}</li><li>Sale: ${fmtg(salt)} · lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">Sequenza suggerita: prepara la biga in anticipo; al momento dell'impasto prepara l'autolisi con una parte della farina residua e dell'acqua, poi unisci biga, ingredienti restanti e sale.</p>`;
+  html=`<strong>Fase 1 · Biga</strong><ul>${flourLines(bf)}<li>Acqua: ${fmtg(bw)} · lievito selezionato: circa ${fmtg(by)}</li><li>Maturazione: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Autolisi della farina rimanente</strong><ul>${flourLines(af)}<li>Acqua: ${fmtg(aw)}</li><li>Riposo: ${$('autolysis-minutes').value} minuti</li></ul><strong>Fase 3 · Impasto finale</strong><ul>${flourLines(flour-bf-af)}<li>Acqua ancora da aggiungere: ${fmtg(water-bw-aw)}</li><li>Sale: ${fmtg(salt)} · lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">Le quantità di ogni farina sono distribuite nelle fasi mantenendo le proporzioni della miscela selezionata.</p>`;
  }
  out.innerHTML=html;
 }
