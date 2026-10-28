@@ -251,6 +251,15 @@ input[type=time],input[type=text],input[type=number],select,textarea{background:
   <div class="group"><div class="label"><span>Lievitazione totale</span></div><div class="stepper-control" role="group" aria-label="Modifica ore di lievitazione"><button type="button" class="stepper-btn" data-target="hours" data-dir="-1" aria-label="Diminuisci">−</button><span id="v-hours" class="stepper-value">8 ore</span><input type="range" id="hours" min="2" max="72" step="1" value="8" tabindex="-1" aria-hidden="true"><button type="button" class="stepper-btn" data-target="hours" data-dir="1" aria-label="Aumenta">+</button></div></div>
   <div class="group"><div class="label"><span>Sale</span></div><div class="stepper-control" role="group" aria-label="Modifica percentuale sale"><button type="button" class="stepper-btn" data-target="salt" data-dir="-1" aria-label="Diminuisci">−</button><span id="v-salt" class="stepper-value">2,8%</span><input type="range" id="salt" min="2" max="3.5" step=".1" value="2.8" tabindex="-1" aria-hidden="true"><button type="button" class="stepper-btn" data-target="salt" data-dir="1" aria-label="Aumenta">+</button></div></div>
   <div class="group"><div class="label"><span>Temperatura ambiente</span></div><div class="stepper-control" role="group" aria-label="Modifica temperatura ambiente"><button type="button" class="stepper-btn" data-target="temp" data-dir="-1" aria-label="Diminuisci">−</button><span id="v-temp" class="stepper-value">22°C</span><input type="range" id="temp" min="16" max="30" step="1" value="22" tabindex="-1" aria-hidden="true"><button type="button" class="stepper-btn" data-target="temp" data-dir="1" aria-label="Aumenta">+</button></div></div>
+  <div class="group flour-blend-group"><div class="label"><span>🌾 Miscela di farine</span><span class="value">fino a 3 farine</span></div>
+   <p class="muted" style="margin:0 0 8px">Scegli una farina principale e, se vuoi, aggiungine altre. Le percentuali si riferiscono al peso totale della farina.</p>
+   <label>Farina principale<select id="blend-flour-1"></select></label>
+   <label style="display:flex;align-items:center;gap:8px;margin-top:10px"><input type="checkbox" id="blend-enable-2" style="width:18px;height:18px;accent-color:#176447"> Aggiungi una seconda farina</label>
+   <div id="blend-row-2" hidden style="margin-top:8px"><label>Seconda farina<select id="blend-flour-2"></select></label><label>Percentuale seconda farina (%)<input id="blend-pct-2" type="number" min="1" max="99" step="1" value="30" inputmode="numeric"></label></div>
+   <label style="display:flex;align-items:center;gap:8px;margin-top:10px"><input type="checkbox" id="blend-enable-3" style="width:18px;height:18px;accent-color:#176447"> Aggiungi una terza farina</label>
+   <div id="blend-row-3" hidden style="margin-top:8px"><label>Terza farina<select id="blend-flour-3"></select></label><label>Percentuale terza farina (%)<input id="blend-pct-3" type="number" min="1" max="98" step="1" value="20" inputmode="numeric"></label></div>
+   <div class="tray-result"><span>Composizione della farina</span><strong id="blend-summary">100% farina principale</strong><small id="blend-w-summary">Forza media stimata: W 260</small></div>
+  </div>
   <div class="group"><div class="label"><span>Tipo di lievito</span></div><select id="yeast-type" aria-label="Tipo di lievito"><option value="fresh" selected>Lievito di birra fresco</option><option value="dry">Lievito di birra secco</option><option value="mother">Lievito madre (pasta madre)</option></select><p class="muted" id="yeast-type-note" style="margin-top:6px">Dose stimata per lievito di birra fresco.</p></div>
  </div>
  <div class="card"><div class="card-title"><span class="title-icon">🌡️</span> Lievitazione: fasi di temperatura</div><p class="muted">Imposta separatamente le ore a temperatura ambiente e quelle in frigorifero o cella. La durata totale aggiorna automaticamente la stima del lievito e il cronoprogramma.</p><div class="tray-fields"><label>Ore a temperatura ambiente<input id="room-hours" type="number" min="0" max="72" step="0.5" value="4" inputmode="decimal"></label><label>Ore a temperatura controllata<input id="cold-hours" type="number" min="0" max="72" step="0.5" value="4" inputmode="decimal"></label></div><div class="tray-fields" style="margin-top:10px"><label>Temperatura controllata (°C)<input id="cold-temp" type="number" min="2" max="18" step="1" value="4" inputmode="decimal"></label><label>Ordine delle fasi<select id="phase-order"><option value="cold-first">Prima temperatura controllata</option><option value="room-first" selected>Prima temperatura ambiente</option></select></label></div><div class="tray-result"><span>Durata totale pianificata</span><strong id="phase-total">8 ore</strong><small id="phase-summary">4 h ambiente + 4 h a 4°C</small></div></div>
@@ -264,7 +273,7 @@ input[type=time],input[type=text],input[type=number],select,textarea{background:
  </div>
  <div class="card"><div class="card-title"><span class="title-icon">▥</span> Proporzioni e ingredienti</div><div class="ingredient-overview"><div class="chartrow"><div class="donut" id="donut"><div class="donut-inner"><strong id="total">1000 g</strong><span>IMPASTO TOTALE</span></div></div></div><div class="chart-legend"><div><i class="legend-flour"></i><span>Farina</span><b id="legend-flour">—</b></div><div><i class="legend-water"></i><span>Acqua</span><b id="legend-water">—</b></div><div><i class="legend-salt"></i><span>Sale</span><b id="legend-salt">—</b></div></div></div>
   <div class="grid"><div class="ing"><small>🌾 Farina</small><strong id="flour-g">595 g</strong></div><div class="ing"><small>💧 Acqua</small><strong id="water-g">387 g</strong></div><div class="ing"><small>🧪 Lievito fresco*</small><strong id="yeast-g">—</strong></div><div class="ing"><small>🧂 Sale</small><strong id="salt-g">16,7 g</strong></div></div>
-  <p class="muted" style="margin-top:12px">*Il lievito è una stima orientativa, non una formula universale: controlla maturazione, temperatura reale, farina e tempi.</p>
+  <p class="muted" style="margin-top:12px">*Il lievito è una stima orientativa, non una formula universale: controlla maturazione, temperatura reale, farina e tempi.</p><p class="muted" id="blend-grams-summary" style="margin-top:6px">Ripartizione farine: —</p>
   <div class="result-actions"><button id="copy-summary" class="secondary-action">⧉ Copia dosi</button><button id="jump-timeline" class="primary-action">Pianifica impasto <span>↗</span></button></div><p id="action-feedback" class="action-feedback" aria-live="polite"></p>
  </div>
 <div class="card craft-card"><div class="card-title"><span class="title-icon">✦</span> Il tuo banco di lavoro <span class="live-pill">LIVE</span></div>
@@ -376,8 +385,31 @@ document.querySelectorAll('.style-btn').forEach(b=>b.addEventListener('click',()
 document.querySelectorAll('.calc-mode-btn').forEach(btn=>btn.addEventListener('click',()=>{calcMode=btn.dataset.mode;document.querySelectorAll('.calc-mode-btn').forEach(b=>b.classList.toggle('active',b===btn));$('tray-calculator').hidden=calcMode!=='teglia';$('balls').closest('.group').style.display=calcMode==='panetti'?'':'none';$('weight').closest('.group').style.display=calcMode==='panetti'?'':'none';calc();}));
 $('flour-select').addEventListener('change',calc);$('bulk').addEventListener('change',updateTimeline);
 $('target-time').addEventListener('change',updateTimeline);
+function setupFlourBlend(){
+ const source=$('flour-select'); if(!source)return;
+ ['blend-flour-1','blend-flour-2','blend-flour-3'].forEach(id=>{const sel=$(id);if(!sel)return;sel.innerHTML=source.innerHTML;sel.value=source.value;});
+ const sync=()=>{ $('blend-row-2').hidden=!$('blend-enable-2').checked; $('blend-row-3').hidden=!$('blend-enable-3').checked; if($('blend-enable-3').checked)$('blend-enable-2').checked=true; $('blend-row-2').hidden=!$('blend-enable-2').checked; updateBlendSummary();calc();};
+ ['blend-enable-2','blend-enable-3','blend-flour-1','blend-flour-2','blend-flour-3','blend-pct-2','blend-pct-3'].forEach(id=>{const el=$(id);if(el)el.addEventListener('input',sync);});
+ $('blend-flour-1').value=source.value; source.addEventListener('change',()=>{$('blend-flour-1').value=source.value;updateBlendSummary();calc();});
+ $('blend-flour-1').addEventListener('change',()=>{source.value=$('blend-flour-1').value;source.dispatchEvent(new Event('change'));});
+ ['blend-flour-2','blend-flour-3'].forEach(id=>$(id).addEventListener('change',()=>{updateBlendSummary();calc();}));
+ sync();
+}
+function getFlourBlend(){
+ const active2=$('blend-enable-2')?.checked||false, active3=$('blend-enable-3')?.checked||false;
+ let p2=active2?Math.max(1,Math.min(99,Number($('blend-pct-2').value)||30)):0;
+ let p3=active3?Math.max(1,Math.min(98,Number($('blend-pct-3').value)||20)):0;
+ if(p2+p3>99){if(active3)p3=Math.max(1,99-p2);if(p2+p3>99)p2=Math.max(1,99-p3);}
+ const p1=100-p2-p3;
+ return [{id:'blend-flour-1',pct:p1},{id:'blend-flour-2',pct:p2},{id:'blend-flour-3',pct:p3}].filter(x=>x.pct>0).map(x=>{const sel=$(x.id),opt=sel?.selectedOptions[0];return {name:opt?.textContent?.trim()||'Farina selezionata',w:Number(sel?.value)||260,pct:x.pct};});
+}
+function updateBlendSummary(){
+ const blend=getFlourBlend();const summary=$('blend-summary'),ws=$('blend-w-summary');if(!summary)return;
+ summary.textContent=blend.map(x=>`${x.pct}% ${x.name}`).join(' + ');
+ const w=blend.reduce((a,x)=>a+x.w*x.pct/100,0);ws.textContent='Forza media stimata: W '+Math.round(w);
+}
 function calc(){
- const balls=+$('balls').value, weight=+$('weight').value, h=+$('hydr').value/100, hours=+$('hours').value, saltPct=+$('salt').value/100, temp=+$('temp').value, W=+$('flour-select').value;
+ const balls=+$('balls').value, weight=+$('weight').value, h=+$('hydr').value/100, hours=+$('hours').value, saltPct=+$('salt').value/100, temp=+$('temp').value, W=getFlourBlend().reduce((a,x)=>a+x.w*x.pct/100,0);
  const total=getTargetTotal();
  const tray=calcMode==='teglia'?getTrayTotal():null;
  // Stima orientativa: la dose effettiva dipende da farina, temperature e attività fermentativa.
@@ -390,11 +422,11 @@ function calc(){
  if($('yeast-type-note'))$('yeast-type-note').textContent=yeastType==='fresh'?'Dose stimata per lievito di birra fresco.':yeastType==='dry'?'Dose stimata: circa un terzo del peso del lievito fresco.':'Dose iniziale indicativa: 20% della farina, assumendo lievito madre al 100% d’idratazione. Rinfresco e forza del lievito possono richiedere correzioni.';
  $('v-balls').textContent=tray?tray.n:balls;$('v-weight').textContent=tray?fmt(tray.perTray,0)+' g/teglia':weight+' g';if(tray){$('tray-result-total').textContent=fmt(tray.total,0)+' g';$('tray-result-detail').textContent=`${tray.l} × ${tray.w} cm · ${tray.n} teglia/e · ${fmt(tray.f,2)} g/cm²`;} $('v-hydr').textContent=Math.round(h*100)+'%';$('v-hours').textContent=hours+' ore';$('v-salt').textContent=fmt(+$('salt').value)+'%';$('v-temp').textContent=temp+'°C';
   [['balls',balls],['weight',weight],['hydr',Math.round(h*100)],['hours',hours],['salt',+$('salt').value],['temp',temp]].forEach(([id,v])=>{const el=$(id),min=+el.min,max=+el.max,pct=(v-min)/(max-min)*100;el.style.setProperty('--range-pct',pct+'%');el.style.background='transparent';el.style.setProperty('background-image',`linear-gradient(90deg,#ff7028 0%,#f7a14d ${pct}%,#302a26 ${pct}%,#302a26 100%)`);});
- $('total').textContent=fmt(total,0)+' g';if($('craft-total'))$('craft-total').textContent=fmt(total,0)+' g';if($('craft-pieces'))$('craft-pieces').textContent=tray?tray.n:balls;if($('craft-maturity'))$('craft-maturity').textContent=hours+' h';$('flour-g').textContent=fmt(flour)+' g';$('water-g').textContent=fmt(water)+' g';$('salt-g').textContent=fmt(salt)+' g';$('yeast-g').textContent=yeast<1?fmt(yeast,2)+' g':fmt(yeast)+' g';if($('yeast-g')?.previousElementSibling)$('yeast-g').previousElementSibling.textContent=yeastType==='fresh'?'🧪 Lievito fresco*':yeastType==='dry'?'🧪 Lievito secco*':'🧪 Lievito madre*';if($('legend-flour'))$('legend-flour').textContent=fmt(flour,0)+' g';if($('legend-water'))$('legend-water').textContent=fmt(water,0)+' g';if($('legend-salt'))$('legend-salt').textContent=fmt(salt,1)+' g';
+ $('total').textContent=fmt(total,0)+' g';if($('craft-total'))$('craft-total').textContent=fmt(total,0)+' g';if($('craft-pieces'))$('craft-pieces').textContent=tray?tray.n:balls;if($('craft-maturity'))$('craft-maturity').textContent=hours+' h';$('flour-g').textContent=fmt(flour)+' g';if($('blend-grams-summary'))$('blend-grams-summary').textContent='Ripartizione farine: '+getFlourBlend().map(x=>`${x.name} ${fmt(flour*x.pct/100,0)} g (${x.pct}%)`).join(' · ');$('water-g').textContent=fmt(water)+' g';$('salt-g').textContent=fmt(salt)+' g';$('yeast-g').textContent=yeast<1?fmt(yeast,2)+' g':fmt(yeast)+' g';if($('yeast-g')?.previousElementSibling)$('yeast-g').previousElementSibling.textContent=yeastType==='fresh'?'🧪 Lievito fresco*':yeastType==='dry'?'🧪 Lievito secco*':'🧪 Lievito madre*';if($('legend-flour'))$('legend-flour').textContent=fmt(flour,0)+' g';if($('legend-water'))$('legend-water').textContent=fmt(water,0)+' g';if($('legend-salt'))$('legend-salt').textContent=fmt(salt,1)+' g';
  const flourDeg=360*flour/total, waterDeg=360*water/total, saltDeg=360*(salt+yeast)/total;
  $('donut').style.background=`conic-gradient(var(--accent) 0deg ${flourDeg}deg,var(--blue) ${flourDeg}deg ${flourDeg+waterDeg}deg,var(--gold) ${flourDeg+waterDeg}deg 360deg)`;
  const warn=(hours>16&&W<270)||(h>.72&&W<280)||(h>.8&&W<320);$('w-alert').style.display=warn?'block':'none';
- const selectedOption=$('flour-select').selectedOptions[0];const flourName=selectedOption?.textContent||'Farina selezionata';const wLabel=selectedOption?.dataset.wlabel||'da verificare';$('flour-advice').textContent=`${flourName}. Valore W indicato: ${wLabel}. Il numero usato dal calcolatore è solo un riferimento tecnico interno per i suggerimenti, non sostituisce la scheda del produttore. Con ${hours} ore, ${Math.round(h*100)}% d'idratazione e ${temp}°C, usa il consiglio come orientamento e verifica la scheda tecnica.`;
+ const blend=getFlourBlend();const selectedOption=$('flour-select').selectedOptions[0];const flourName=blend.map(x=>`${x.pct}% ${x.name}`).join(' + ');const wLabel='circa '+Math.round(W);$('flour-advice').textContent=`Miscela selezionata: ${flourName}. Forza media stimata: W ${Math.round(W)}. I valori W sono riferimenti indicativi e non sostituiscono le schede tecniche dei produttori. Con ${hours} ore, ${Math.round(h*100)}% d'idratazione e ${temp}°C, verifica la tenuta dell'impasto e adatta l'acqua alle farine usate.`;
  if($('selected-w-label'))$('selected-w-label').textContent='W '+wLabel;if($('flour-w-stat'))$('flour-w-stat').textContent=wLabel;if($('flour-hydr-stat'))$('flour-hydr-stat').textContent=Math.round(h*100)+'%';if($('flour-hours-stat'))$('flour-hours-stat').textContent=hours+' h';
  updateMethodBreakdown();
 }
@@ -619,6 +651,7 @@ function restoreLastRecipeState(){
  }catch(e){}
 }
 restoreLastRecipeState();
+setupFlourBlend();
 // Salva a ogni modifica, cambio di tecnica o scelta di un preset; resta sul dispositivo/browser.
 document.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{if(el.id==='recipe-search')return;el.addEventListener('input',saveLastRecipeState);el.addEventListener('change',saveLastRecipeState)});
 document.querySelectorAll('.style-btn,.calc-mode-btn,[data-preset]').forEach(el=>el.addEventListener('click',()=>setTimeout(saveLastRecipeState,0)));
