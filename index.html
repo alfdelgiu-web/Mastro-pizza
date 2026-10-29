@@ -388,6 +388,8 @@ $('target-time').addEventListener('change',updateTimeline);
 function setupFlourBlend(){
  const source=$('flour-select'); if(!source)return;
  ['blend-flour-1','blend-flour-2','blend-flour-3'].forEach(id=>{const sel=$(id);if(!sel)return;sel.innerHTML=source.innerHTML;sel.value=source.value;});
+ // Ripristina la miscela salvata dopo aver popolato le opzioni dei menu.
+ try{const saved=JSON.parse(localStorage.getItem('mastroPizzaLastRecipeV19')||'null');const values=saved&&saved.values||{};['blend-flour-1','blend-flour-2','blend-flour-3'].forEach(id=>{if(values[id]!==undefined)$(id).value=values[id];});['blend-enable-2','blend-enable-3'].forEach(id=>{if(typeof values[id]==='boolean')$(id).checked=values[id];});['blend-pct-2','blend-pct-3'].forEach(id=>{if(values[id]!==undefined)$(id).value=values[id];});}catch(e){}
  const sync=()=>{ $('blend-row-2').hidden=!$('blend-enable-2').checked; $('blend-row-3').hidden=!$('blend-enable-3').checked; if($('blend-enable-3').checked)$('blend-enable-2').checked=true; $('blend-row-2').hidden=!$('blend-enable-2').checked; updateBlendSummary();calc();};
  ['blend-enable-2','blend-enable-3','blend-flour-1','blend-flour-2','blend-flour-3','blend-pct-2','blend-pct-3'].forEach(id=>{const el=$(id);if(el)el.addEventListener('input',sync);});
  $('blend-flour-1').value=source.value; source.addEventListener('change',()=>{$('blend-flour-1').value=source.value;updateBlendSummary();calc();});
@@ -440,15 +442,20 @@ function updateMethodBreakdown(){
  const salt=parseFloat(($('salt-g').textContent||'0').replace(/[^0-9,.-]/g,'').replace(/\./g,'').replace(',','.'))||0;
  const yeast=parseFloat(($('yeast-g').textContent||'0').replace(/[^0-9,.-]/g,'').replace(/\./g,'').replace(',','.'))||0;
  const fmtg=n=>fmt(Math.max(0,n),1)+' g';
- const flourLines=(amount)=>getFlourBlend().map(f=>`<li>${f.name}: ${fmtg(amount*f.pct/100)} (${f.pct}%)</li>`).join('');
+ const blend=getFlourBlend();
+ const flourLines=(amount)=>blend.map(f=>`<li>${f.name}: ${fmtg(amount*f.pct/100)} (${f.pct}%)</li>`).join('');
+ // Per la biga, usa prima la farina più forte (W maggiore); le altre restano per le fasi successive.
+ const allocateBiga=(amount)=>{let remaining=Math.max(0,amount),alloc={};[...blend].sort((a,b)=>b.w-a.w).forEach(f=>{const available=flour*f.pct/100;const take=Math.min(available,remaining);alloc[f.name]=take;remaining-=take;});return alloc;};
+ const subtractAlloc=(alloc)=>{const out={};blend.forEach(f=>out[f.name]=Math.max(0,flour*f.pct/100-(alloc[f.name]||0)));return out;};
+ const allocationLines=(alloc)=>blend.map(f=>`<li>${f.name}: ${fmtg(alloc[f.name]||0)}</li>`).join('');
  let html='';
  if(method==='direct'){
   html='<strong>Impasto diretto</strong><p>Usa tutte le dosi mostrate nel riepilogo ingredienti e impasta in un’unica fase.</p><strong>Farine da pesare</strong><ul>'+flourLines(flour)+'</ul>';
  } else if(method==='biga'){
   const pct=Math.max(20,Math.min(100,Number($('biga-flour-pct').value)||45))/100;
   const bh=Math.max(40,Math.min(60,Number($('biga-hydr-pct').value)||45))/100;
-  const bf=flour*pct,bw=bf*bh,by=yeast*.7;
-  html=`<strong>Fase 1 · Biga</strong><ul>${flourLines(bf)}<li>Acqua: ${fmtg(bw)} (${Math.round(bh*100)}% sulla farina della biga)</li><li>Lievito selezionato: circa ${fmtg(by)} della dose totale stimata</li><li>Maturazione impostata: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Impasto finale</strong><ul>${flourLines(flour-bf)}<li>Acqua da aggiungere: ${fmtg(water-bw)}</li><li>Sale: ${fmtg(salt)}</li><li>Lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">Le quantità di ogni farina sono ripartite automaticamente in base alle percentuali della miscela scelta.</p>`;
+  const bf=flour*pct,bw=bf*bh,by=yeast*.7,bigaAlloc=allocateBiga(bf),restAlloc=subtractAlloc(bigaAlloc);
+  html=`<strong>Fase 1 · Biga</strong><ul>${allocationLines(bigaAlloc)}<li>Acqua: ${fmtg(bw)} (${Math.round(bh*100)}% sulla farina della biga)</li><li>Lievito selezionato: circa ${fmtg(by)} della dose totale stimata</li><li>Maturazione impostata: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Impasto finale</strong><ul>${allocationLines(restAlloc)}<li>Acqua da aggiungere: ${fmtg(water-bw)}</li><li>Sale: ${fmtg(salt)}</li><li>Lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">Le quantità di ogni farina sono ripartite automaticamente in base alle percentuali della miscela scelta.</p>`;
  } else if(method==='autolysis'){
   const fp=Math.max(30,Math.min(100,Number($('autolysis-flour-pct').value)||50))/100;
   const wp=Math.max(40,Math.min(100,Number($('autolysis-water-pct').value)||50))/100;
@@ -457,10 +464,10 @@ function updateMethodBreakdown(){
  } else {
   const pct=Math.max(20,Math.min(100,Number($('biga-flour-pct').value)||45))/100;
   const bh=Math.max(40,Math.min(60,Number($('biga-hydr-pct').value)||45))/100;
-  const bf=flour*pct,bw=bf*bh,by=yeast*.7;
+  const bf=flour*pct,bw=bf*bh,by=yeast*.7,bigaAlloc=allocateBiga(bf),restAlloc=subtractAlloc(bigaAlloc);
   const af=Math.max(0,flour-bf)*Math.max(30,Math.min(100,Number($('autolysis-flour-pct').value)||50))/100;
   const aw=Math.min(Math.max(0,water-bw),af*Math.max(40,Math.min(100,Number($('autolysis-water-pct').value)||50))/100);
-  html=`<strong>Fase 1 · Biga</strong><ul>${flourLines(bf)}<li>Acqua: ${fmtg(bw)} · lievito selezionato: circa ${fmtg(by)}</li><li>Maturazione: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Autolisi della farina rimanente</strong><ul>${flourLines(af)}<li>Acqua: ${fmtg(aw)}</li><li>Riposo: ${$('autolysis-minutes').value} minuti</li></ul><strong>Fase 3 · Impasto finale</strong><ul>${flourLines(flour-bf-af)}<li>Acqua ancora da aggiungere: ${fmtg(water-bw-aw)}</li><li>Sale: ${fmtg(salt)} · lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">Le quantità di ogni farina sono distribuite nelle fasi mantenendo le proporzioni della miscela selezionata.</p>`;
+  html=`<strong>Fase 1 · Biga</strong><ul>${allocationLines(bigaAlloc)}<li>Acqua: ${fmtg(bw)} · lievito selezionato: circa ${fmtg(by)}</li><li>Maturazione: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Autolisi della farina rimanente</strong><ul>${allocationLines(Object.fromEntries(blend.map(f=>[f.name,(restAlloc[f.name]||0)*af/Math.max(1,flour-bf)])))}<li>Acqua: ${fmtg(aw)}</li><li>Riposo: ${$('autolysis-minutes').value} minuti</li></ul><strong>Fase 3 · Impasto finale</strong><ul>${allocationLines(Object.fromEntries(blend.map(f=>[f.name,Math.max(0,(restAlloc[f.name]||0)*(flour-bf-af)/Math.max(1,flour-bf))])))}<li>Acqua ancora da aggiungere: ${fmtg(water-bw-aw)}</li><li>Sale: ${fmtg(salt)} · lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">Le quantità di ogni farina sono distribuite nelle fasi mantenendo le proporzioni della miscela selezionata.</p>`;
  }
  out.innerHTML=html;
 }
