@@ -465,9 +465,19 @@ function updateMethodBreakdown(){
   const pct=Math.max(20,Math.min(100,Number($('biga-flour-pct').value)||45))/100;
   const bh=Math.max(40,Math.min(60,Number($('biga-hydr-pct').value)||45))/100;
   const bf=flour*pct,bw=bf*bh,by=yeast*.7,bigaAlloc=allocateBiga(bf),restAlloc=subtractAlloc(bigaAlloc);
-  const af=Math.max(0,flour-bf)*Math.max(30,Math.min(100,Number($('autolysis-flour-pct').value)||50))/100;
+  const requestedAutolysisPct=Math.max(0,Math.min(100,Number($('autolysis-flour-pct').value)||50));
+  const maxAutolysisPct=Math.max(0,100-pct*100);
+  const effectiveAutolysisPct=Math.min(requestedAutolysisPct,maxAutolysisPct);
+  // Le percentuali biga/autolisi sono entrambe riferite alla farina TOTALE.
+  // La farina destinata all'autolisi non viene ricalcolata sul residuo della biga.
+  const af=flour*effectiveAutolysisPct/100;
+  const finalFlour=Math.max(0,flour-bf-af);
   const aw=Math.min(Math.max(0,water-bw),af*Math.max(40,Math.min(100,Number($('autolysis-water-pct').value)||50))/100);
-  html=`<strong>Fase 1 · Biga</strong><ul>${allocationLines(bigaAlloc)}<li>Acqua: ${fmtg(bw)} · lievito selezionato: circa ${fmtg(by)}</li><li>Maturazione: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Autolisi della farina rimanente</strong><ul>${allocationLines(Object.fromEntries(blend.map(f=>[f.name,(restAlloc[f.name]||0)*af/Math.max(1,flour-bf)])))}<li>Acqua: ${fmtg(aw)}</li><li>Riposo: ${$('autolysis-minutes').value} minuti</li></ul><strong>Fase 3 · Impasto finale</strong><ul>${allocationLines(Object.fromEntries(blend.map(f=>[f.name,Math.max(0,(restAlloc[f.name]||0)*(flour-bf-af)/Math.max(1,flour-bf))])))}<li>Acqua ancora da aggiungere: ${fmtg(water-bw-aw)}</li><li>Sale: ${fmtg(salt)} · lievito residuo stimato: ${fmtg(yeast-by)}</li></ul><p class="method-note">Le quantità di ogni farina sono distribuite nelle fasi mantenendo le proporzioni della miscela selezionata.</p>`;
+  const allocationScale=Math.max(1,flour-bf);
+  const autolysisAlloc=Object.fromEntries(blend.map(f=>[f.name,(restAlloc[f.name]||0)*af/allocationScale]));
+  const finalAlloc=Object.fromEntries(blend.map(f=>[f.name,Math.max(0,(restAlloc[f.name]||0)-autolysisAlloc[f.name])]));
+  const pctWarning=requestedAutolysisPct>maxAutolysisPct?`<p class="method-note">Attenzione: biga (${Math.round(pct*100)}%) e autolisi (${Math.round(requestedAutolysisPct)}%) supererebbero il 100% della farina. Autolisi ridotta automaticamente al ${Math.round(effectiveAutolysisPct)}%.</p>`:'';
+  html=`<strong>Fase 1 · Biga</strong><ul>${allocationLines(bigaAlloc)}<li>Acqua: ${fmtg(bw)} · lievito selezionato: circa ${fmtg(by)}</li><li>Maturazione: ${$('biga-hours').value} h a ${$('biga-temp').value}°C</li></ul><strong>Fase 2 · Autolisi della farina rimanente</strong><ul>${allocationLines(autolysisAlloc)}<li>Acqua: ${fmtg(aw)}</li><li>Riposo: ${$('autolysis-minutes').value} minuti</li></ul><strong>Fase 3 · Impasto finale</strong><ul>${allocationLines(finalAlloc)}<li>Acqua ancora da aggiungere: ${fmtg(water-bw-aw)}</li><li>Sale: ${fmtg(salt)} · lievito residuo stimato: ${fmtg(yeast-by)}</li></ul>${pctWarning}<p class="method-note">Le percentuali di biga e autolisi sono calcolate sulla farina totale. La farina eventualmente non assegnata alle prime due fasi resta nell'impasto finale.</p>`;
  }
  out.innerHTML=html;
 }
